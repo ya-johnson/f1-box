@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700;800&family=Russo+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-Kanit;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    @apply font-Russo-one;
+  }
+
+  h1 {
+    @apply text-6xl;
+  }
+}
