@@ -1,6 +1,14 @@
 import { supabase } from '../utils'
 
 
+const getLastResultId = async () => {
+  const { data, error } = await supabase.from('Results')
+                                        .select('resultId')
+                                        .limit(1)
+                                        .order('resultId', { ascending: false })
+  return data[0]
+}
+
 const getLastResult = async () => {
   const { data, error } = await supabase.from('Results')
                                         .select('*')
@@ -9,16 +17,25 @@ const getLastResult = async () => {
   return data[0]
 }
 
-const getLastResults = async () => {
+const getRawResults = async (raceId) => {
   const { data, error } = await supabase.from('Results')
-                                        .select('*')
-                                        .limit(20)
-                                        .order('resultId', { ascending: false })
-  return data[0]
+                                        .select(`*`)
+                                        .eq('raceId', raceId)
+  return data
+}
+
+const getResults = async (raceId) => {
+  const { data, error } = await supabase.from('Results')
+                                        .select(`Drivers(forename, surname),
+                                                 number, position, points, time`)
+                                        .eq('raceId', raceId)
+  return data
 }
 
 
 export {
+  getLastResultId,
   getLastResult,
-  getLastResults
+  getRawResults,
+  getResults
 }

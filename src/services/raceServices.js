@@ -1,20 +1,14 @@
 import { supabase } from '../utils'
-// results, quali, laps, pits
 
 
 const getRaceById = async (raceId) => {
   const { data, error } = await supabase.from('Races')
-                                        .select('*')
+                                        .select('raceId, year, round, Circuits(country), name, date, time')
                                         .eq('raceId', raceId)
   return data[0]
 }
 
 
-
-
-
-
 export {
   getRaceById,
-
 }

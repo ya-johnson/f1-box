@@ -8,12 +8,6 @@ const getDriverId = async (ref) => {
   return data[0].driverId
 }
 
-const getGridByYear = async (year) => {
-  const { data, error } = await supabase.from('Driver Standings')
-                                        .select('*')
-  return data
-}
-
 
 export {
   getDriverId

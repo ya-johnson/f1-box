@@ -1,5 +1,4 @@
 import { supabase } from '../utils'
-import raceService from './raceServices'
 
 
 const getSeasonsList = async () => {
@@ -10,16 +9,15 @@ const getSeasonsList = async () => {
 
 const getSeasonSchedule = (year) => {
   const { data, error } = supabase.from('Races')
-                                  .select('year, round, circuitId, name, date, time')
+                                  .select('raceId, year, round, circuitId, name, date, time')
                                   .eq('year', year)
   return data
 }
 
-const getSeasonGrid = async (year) => {
-  const seasonFirstRace = await raceService.getSeasonFirstRace(year)
-  const { data, error } = supabase.from('Results')
+const getSeasonGrid = async (raceId) => {
+  const { data, error } = supabase.from('Driver Standings')
                                   .select('Drivers(number, code, forename, surname), Constructors(name, nationality)')
-                                  .eq('raceId', seasonFirstRace)
+                                  .eq('raceId', raceId)
   return data
 }
 
