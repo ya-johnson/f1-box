@@ -16,7 +16,7 @@ const HomeHero = () => {
 
 
   const getPodium = async () => {
-    const response = await resultService.getLastResults()
+    const response = await resultService.getResults(lastRace.raceId)
     const results = response.map(result => {
       return {
         position: result.position,
@@ -41,10 +41,7 @@ const HomeHero = () => {
   useEffect(() => {
     if (lastRace) {
       initSection()
-    } else {
-      return
     }
-    
   }, [lastRace])
 
 
@@ -67,16 +64,16 @@ const HomeHero = () => {
     
           <div className="flex space-x-6">
             <Link href={'/Races'}>
-              <a className="btn amber-btn">Results and Analytics</a>
+              <a className="btn amber-btn sdw-sm">Results and Analytics</a>
             </Link>
             <Link href={raceInfo.reportLink}>
-              <a className="btn neutral-btn" target="__blank">Officel Formula 1 Race Report</a>
+              <a className="btn neutral-btn sdw-sm" target="__blank">Officel Formula 1 Race Report</a>
             </Link>
           </div>
         </div>
 
         <Link href={raceInfo.url} >
-          <a className="hover:-translate-y-2" target="__blank">
+          <a className="hover:-translate-y-2 sdw-xl" target="__blank">
             <img src={raceInfo.image} className="w-[60vw]"/>
           </a>
         </Link>

@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react'
-import { raceService } from '../services'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import { HomeInfo } from '../components'
 
 const Home = () => {
 
-  const [lastRaceId, setLastRaceId] = useState()
-
-  const initApp = async () => {
-    // const lastRaceId = await raceService.getLastRace()
-    // setLastRaceId(lastRaceId)
-  }
-  
-
-  useEffect(() => {
-
-    initApp()
-  },[])
-
+    
+  const HomeHero = dynamic(() => import('../components/HomeHero'), { ssr: false })
+  const HomeNews = dynamic(() => import('../components/HomeNews'), { ssr: false })
 
   return (
-      <div className="container">
-        <h1>Hello there</h1>
-        <p>some regular text</p>
-       
-      </div>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>F1 box</title>
+      </Head>
+
+      <main>
+        <HomeHero />
+        <HomeInfo />
+        <HomeNews />
+      </main>
+    </>
   )
 }
 
