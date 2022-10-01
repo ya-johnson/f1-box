@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useCurrentStore } from '../store'
 import { dbService } from '../services'
+import axios from 'axios'
 // load 'current'
 
 const Intro = () => {
 
-  const setLastRaceId = useCurrentStore(state => state.setLastRaceId)
-
-  const [loading, setLoading] = useState(true)
+  const setLastRace = useCurrentStore(state => state.setLastRace)
 
   const initApp = async () => {
-    const data = await dbService.verifyDb()
+    const lastRace = await axios.get('/api/data/verify')
+    setLastRace(lastRace)
+    document.querySelector('.intro').classList.add('hidden')
   }
 
   useEffect(() => {
