@@ -1,22 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useCurrentStore } from '../store'
-import { dbService } from '../services'
-import axios from 'axios'
-// load 'current'
+import { dataService } from '../services'
+
 
 const Intro = () => {
 
-  const setLastRace = useCurrentStore(state => state.setLastRace)
+  const setDBLastRace = useCurrentStore(state => state.setDBLastRace)
+  const setCurrentRace = useCurrentStore(state => state.setCurrentRace)
 
   const initApp = async () => {
-    const lastRace = await axios.get('/api/data/verify')
-    setLastRace(lastRace)
-    document.querySelector('.intro').classList.add('hidden')
+    const { dbLastRace, currentRace, nextRace } = await dataService.checkLastRace()
+    setDBLastRace(dbLastRace)
+    setCurrentRace(currentRace)
   }
+
 
   useEffect(() => {
     initApp()
   },[])
+
 
   return (
     <div className="intro h-full w-full fixed top-0 left-0
