@@ -1,8 +1,9 @@
+import * as dataService from './dataServices'
 import * as dbService from './dbServices'
 import * as raceService from './raceServices'
 import * as resultService from './resultServices'
 import * as qualiService from './qualiServices'
-import * as lapService from './LapServices'
+import * as lapService from './lapServices'
 import * as pitService from './pitServices'
 import * as seasonService from './seasonServices'
 import * as standingsService from './standingsServices'
@@ -15,6 +16,7 @@ import * as wikiService from './wikiServices'
 
 
 export {
+  dataService,
   dbService,
   raceService,
   resultService,
