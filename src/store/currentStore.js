@@ -1,16 +1,15 @@
 import create from 'zustand'
-import { persist } from 'zustand/middleware'
 
 
-let currentStore = set => ({
-  lastRace: null,
-  setLastRace: (race) => set(() => ({ lastRace: race })),
+const useCurrentStore = create(set => ({
+  dbLastRace : null,
+  setDBLastRace: (race) => set(() => ({ dbLastRace: race })),
+  currentRace: null,
+  setCurrentRace: (race) => set(() => ({ currentRace: race })),
   nextRace : null,
-  setNextRace: (race) => set(() => ({ nextRace: race })),
-})
+  setNextRace: (race) => set(() => ({ nextRace: race }))
+}))
 
-currentStore = persist(currentStore, { name: 'current' })
-const useCurrentStore = create(currentStore)
 
 
 export default useCurrentStore
