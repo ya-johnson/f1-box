@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCurrentStore, useThemeStore } from '../store'
+import { useGlobalStore, useThemeStore } from '../store'
 import { BsSun, BsMoon } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
+import Flag from 'react-world-flags'
 
 
 const Nav = () => {
 
-  const currentRace = useCurrentStore(state => state.currentRace)
-  const nextRace = useCurrentStore(state => state.nextRace)
+  const nextRace = useGlobalStore(state => state.nextRace)
   const theme = useThemeStore(state => state.theme)
   const setTheme = useThemeStore(state => state.setTheme)
   const [menu, setMenu] = useState(false)
@@ -79,7 +79,7 @@ const Nav = () => {
           </div>
         </div>
 
-        <div className="flex space-x-4">
+        <div className="flex items-center space-x-4">
           { theme === 'dark' ? 
               <BsSun className="icon"
                       onClick={toggleTheme} />
@@ -89,6 +89,10 @@ const Nav = () => {
           }
           <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
                   onClick={toggleMenu}/>
+          <div className="py-1 px-2 brd border rounded-md">
+            <Flag code={nextRace.country.slice(0,3)} />
+            <p>{`${nextRace.country}: ${nextRace.time}`}</p>
+          </div>
         </div>
 
       </div>

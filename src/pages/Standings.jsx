@@ -1,16 +1,13 @@
 import dynamic from 'next/dynamic'
 
-const StandingsTable = dynamic(() => import('../components/StandingsTable'), { ssr: false })
+
+const StandingsPage = dynamic(() => import('../components/StandingsPage'), { ssr: false })
+
 
 const Standings = () => {
 
   return (
-    <main>
-      <div className="container">
-        <h1>Standings</h1>
-        <StandingsTable />
-      </div>
-    </main>
+    <StandingsPage />
   )
 }
 

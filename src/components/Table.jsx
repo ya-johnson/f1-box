@@ -8,7 +8,7 @@ const Table = ({ cols, rows, width}) => {
         {cols.map(col => {
           return (
             <th className="font-Kanit font-medium py-1 px-4 capitalize
-                         bg-neutral-200 dark:bg-neutral-700
+                         bg-neutral-300 dark:bg-neutral-700
                            border border-neutral-500 border-solid">
               {col}
             </th>

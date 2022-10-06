@@ -5,7 +5,8 @@ import Loader from './Loader'
 import HomeHero from './HomeHero'
 import HomeInfo from './HomeInfo'
 import HomeNews from './HomeNews'
-import StandingsTable from './StandingsTable'
+import StandingsPage from './StandingsPage'
+
 
 export {
   Intro,
@@ -15,5 +16,5 @@ export {
   HomeHero,
   HomeInfo,
   HomeNews,
-  StandingsTable
+  StandingsPage
 }

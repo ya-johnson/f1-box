@@ -1,8 +1,8 @@
-import useCurrentStore from './currentStore'
+import useGlobalStore from './globalStore'
 import useThemeStore from './themeStore'
 
 
 export {
-  useCurrentStore,
+  useGlobalStore,
   useThemeStore
 }

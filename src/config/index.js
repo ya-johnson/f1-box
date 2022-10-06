@@ -1,8 +1,8 @@
-const config = {
-  DB_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  DB_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  API_URL: process.env.NEXT_PUBLIC_API_URL
+const API_URL = 'http://ergast.com/api/f1'
+const FORMULA1_URL = 'https://formula1.com'
+
+
+export {
+  API_URL,
+  FORMULA1_URL
 }
-
-
-export default config

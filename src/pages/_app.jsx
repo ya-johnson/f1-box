@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { useCurrentStore } from '../store'
+import { useGlobalStore } from '../store'
 import '../styles/globals.css'
 
 
 const MyApp = ({ Component, pageProps }) => {
 
-  const currentRace = useCurrentStore(state => state.currentRace)
+  const nextRace = useGlobalStore(state => state.nextRace)
   const Intro = dynamic(() => import('../components/Intro'), { ssr: false })
   const Nav = dynamic(() => import('../components/Nav'), { ssr: false })
 
@@ -18,7 +18,7 @@ const MyApp = ({ Component, pageProps }) => {
         <title>F1 box</title>
       </Head>
 
-    { !currentRace ? <Intro /> :
+    { !nextRace ? <Intro /> :
       <>
         <Nav />
         <Component {...pageProps} />

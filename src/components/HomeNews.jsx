@@ -1,27 +1,12 @@
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import axios from 'axios'
-
-const HomeNews = () => {
-
-  const [articles, setArticles] = useState()
-
-  const initSection = async () => {
-    const response = await axios.get('/api/news/formula1')
-    const articles = await response.data
-    setArticles(articles)
-  }
 
 
-  useEffect(() => {
-    initSection()
-  }, [])
-
+const HomeNews = ({ articles }) => {
 
   return (
     <section className="container px-28">
-      <div className="brd-b pb-2 mb-14">
-        <h2>News</h2>
+      <div className="brd border-b  mb-8">
+        <h2>Press</h2>
       </div>
 
       <div>
@@ -34,7 +19,7 @@ const HomeNews = () => {
                 <a className="w-[calc(100%/3)]" target="__blank">
                   <div className="card text-left h-full sdw-xl">
                     <div className="card-header p-0 brd-b">
-                      <img src={article.image} className="w-full h-60 object-coverr"/>
+                      <img src={article.image} className="w-full h-60 rounded-t-xl"/>
                     </div>
                     <div className="p-4">
                       <span>{article.type}</span>

@@ -1,22 +1,29 @@
 import { useEffect } from 'react'
-import { useCurrentStore } from '../store'
-import { dataService } from '../services'
+import { useGlobalStore } from '../store'
+import { seasonService, raceService } from '../services'
 
 
 const Intro = () => {
 
-  const setDBLastRace = useCurrentStore(state => state.setDBLastRace)
-  const setCurrentRace = useCurrentStore(state => state.setCurrentRace)
+  const setSeasonsList = useGlobalStore(state => state.setSeasonsList)
+  const setSeason = useGlobalStore(state => state.setSeason)
+  const setLastRace = useGlobalStore(state => state.setLastRace)
+  const setNextRace = useGlobalStore(state => state.setNextRace)
 
-  const initApp = async () => {
-    const { dbLastRace, currentRace, nextRace } = await dataService.checkLastRace()
-    setDBLastRace(dbLastRace)
-    setCurrentRace(currentRace)
+  const getGlobalData = async () => {
+    const seasonsList = await seasonService.getSeasonsList() 
+    const season = await seasonService.getSeasonSchdule()
+    const lastRace = await raceService.getLastRace()
+    const nextRace = season.schdule[lastRace.round]
+    setSeasonsList(seasonsList)
+    setSeason(season)
+    setLastRace(lastRace)
+    setNextRace(nextRace)
   }
 
 
   useEffect(() => {
-    initApp()
+    getGlobalData()
   },[])
 
 

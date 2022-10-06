@@ -6,19 +6,66 @@
 
 @layer base {
 
+  * {
+    @apply transition-all duration-300;
+  }
+
   html {
     @apply scroll-smooth;
   }
 
   body {
-    @apply font-Kanit;
+    @apply overflow-x-hidden font-Kanit 
+         text-neutral-800 dark:text-neutral-300 
+         bg-neutral-200 dark:bg-neutral-800;
   }
 
   h1,h2,h3,h4,h5,h6 {
-    @apply font-Russo-one;
+    @apply font-Russo-one ;
   }
 
   h1 {
-    @apply text-6xl;
+    @apply text-6xl mb-6;
+  }
+
+  h2 {
+    @apply text-4xl mb-4;
+  }
+
+  h3 {
+    @apply text-2xl mb-2;
+  }
+
+  /* utility */
+
+  .brd {
+    @apply border-solid border-neutral-700 dark:border-neutral-500;
+  }
+
+  .btn {
+    @apply py-2 px-4 hover:-translate-y-1 rounded-lg
+           border border-solid border-neutral-500;
+  }
+
+  .neutral-btn {
+    @apply bg-neutral-300 dark:bg-neutral-700 ;
+  }
+
+  .amber-btn {
+    @apply bg-amber-400 dark:bg-amber-400 text-neutral-900 
+           dark:text-neutral-900 dark:border-amber-400;
+  }
+
+  .icon {
+    @apply cursor-pointer h-6 w-6 text-neutral-500;
+  }
+
+  .card {
+    @apply border border-neutral-500 border-solid rounded-2xl
+           hover:translate-y-1;
+  }
+
+  .card-header {
+    @apply  border-b border-neutral-500 border-solid rounded-t-xl;
   }
 }
