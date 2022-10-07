@@ -1,7 +1,7 @@
 import * as dbService from './dbServices'
 import * as raceService from './raceServices'
 import * as resultService from './resultServices'
-import * as qualiService from './qualiServices'
+import * as qualifyService from './qualifyServices'
 import * as lapService from './lapServices'
 import * as pitService from './pitServices'
 import * as seasonService from './seasonServices'
@@ -16,7 +16,7 @@ export {
   dbService,
   raceService,
   resultService,
-  qualiService,
+  qualifyService,
   lapService,
   pitService,
   seasonService,
