@@ -7,8 +7,8 @@ import '../styles/globals.css'
 const MyApp = ({ Component, pageProps }) => {
 
   const nextRace = useGlobalStore(state => state.nextRace)
-  const Intro = dynamic(() => import('../components/Intro'), { ssr: false })
-  const Nav = dynamic(() => import('../components/Nav'), { ssr: false })
+  const Intro = dynamic(() => import('../lib/components/Intro'), { ssr: false })
+  const Nav = dynamic(() => import('../lib/components/Nav'), { ssr: false })
 
   
   return (

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 
-const StandingsPage = dynamic(() => import('../components/StandingsPage'), { ssr: false })
+const StandingsPage = dynamic(() => import('../lib/pages/StandingsPage'), { ssr: false })
 
 
 const Standings = () => {

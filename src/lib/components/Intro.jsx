@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useGlobalStore } from '../store'
-import { seasonService, raceService } from '../services'
+import { useGlobalStore } from '../../store'
+import { seasonService, raceService } from '../../services'
 
 
 const Intro = () => {

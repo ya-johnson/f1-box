@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Table } from './'
+import { Table } from '../ui'
 import Flag from 'react-world-flags'
 
 
@@ -24,16 +24,16 @@ const HomeHero = ({ lastRace, podium, report }) => {
 
           <div className="flex space-x-6">
             <Link href={'/Races'}>
-              <a className="btn amber-btn">Results and Analytics</a>
+              <a className="btn amber-btn sdw">Results and Analytics</a>
             </Link>
             <Link href={report.reportLink}>
-              <a className="btn neutral-btn" target="__blank">Officel Formula 1 Race Report</a>
+              <a className="btn neutral-btn sdw" target="__blank">Officel Formula 1 Race Report</a>
             </Link>
           </div>
         </div>
 
         <Link href={report.url} >
-          <a className="hover:-translate-y-2 sdw-xl" target="__blank">
+          <a className="hover:-translate-y-2 sdw" target="__blank">
             <img src={report.image} className="w-[60vw]"/>
           </a>
         </Link>

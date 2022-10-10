@@ -60,12 +60,8 @@
     @apply cursor-pointer h-6 w-6 text-neutral-500;
   }
 
-  .card {
-    @apply border border-neutral-500 border-solid rounded-2xl
-           hover:translate-y-1;
+  .sdw {
+    @apply hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)];
   }
-
-  .card-header {
-    @apply  border-b border-neutral-500 border-solid rounded-t-xl;
-  }
+  
 }

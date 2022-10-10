@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useGlobalStore } from '../store'
-import { standingsService } from '../services'
-import { Table, Loader } from './'
+import { useGlobalStore } from '../../store'
+import { standingsService } from '../../services'
+import { Table, Loader } from '../ui'
 
 
 const StandingsPage = () => {

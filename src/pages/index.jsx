@@ -1,8 +1,10 @@
-import { HomeHero ,HomeInfo, HomeNews } from '../components'
 import { seasonService,
          raceService,
          newsService,
          resultService } from '../services'
+import { HomeHero,
+         HomeInfo,
+         HomeNews } from '../lib/components'
 
 
 export const getServerSideProps = async () => {
@@ -20,8 +22,6 @@ export const getServerSideProps = async () => {
   }).sort((a,b) => b.points - a.points).slice(0,3)
   const report = await newsService.getRaceReport(lastRace.season, lastRace.country)
   const F1News = await newsService.getFormula1News()
-
-  console.log(lastRace)
 
   return {
     props: {

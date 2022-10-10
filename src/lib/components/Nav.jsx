@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useGlobalStore, useThemeStore } from '../store'
+import { useGlobalStore, useThemeStore } from '../../store'
 import { BsSun, BsMoon } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import Flag from 'react-world-flags'
@@ -89,8 +89,8 @@ const Nav = () => {
           }
           <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
                   onClick={toggleMenu}/>
-          <div className="py-1 px-2 brd border rounded-md">
-            <Flag code={nextRace.country.slice(0,3)} />
+          <div className="flex items-center space-x-2 py-1 px-2 brd border rounded-md">
+            <Flag code={nextRace.country.slice(0,3)} className="h-5"/>
             <p>{`${nextRace.country}: ${nextRace.time}`}</p>
           </div>
         </div>
