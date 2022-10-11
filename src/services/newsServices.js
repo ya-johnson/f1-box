@@ -1,4 +1,6 @@
-import { FORMULA1_URL } from '../config'
+import { FORMULA1_URL,
+         SKY_F1_URL,
+         MOTOR_SPORT_F1_URL } from '../config'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
@@ -37,13 +39,32 @@ const getFormula1News = async () => {
       url: `${FORMULA1_URL}${page(article).find('a').attr('href')}`
     }
   }).get()
-
-  const articles = articlesData.slice(1,4)            
+  articlesData.shift()
+  const articles = articlesData.filter(article => !article.type.includes('Video'))
   return articles
+}
+
+const getSkyF1News = async () => {
+  const response = await axios.get(`${SKY_F1_URL}/news`)
+  const data = await response.data
+
+  const page = cheerio.load(data)
+  const articlesData = page('.news-list__item, .news-list').map((i, article) => {
+    return {
+      header: page(article).find('.news-list__headline').text(),
+      type: page(article).find('.lable__tag').text(),
+      image: page(article).find('.news-list__image').attr('data-src'),
+      url: page(article).find('a').attr('href')
+    }
+  }).get()
+  articlesData.shift()
+
+  return articlesData
 }
 
 
 export {
   getRaceReport,
-  getFormula1News
+  getFormula1News,
+  getSkyF1News
 }
