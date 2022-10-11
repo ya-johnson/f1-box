@@ -2,9 +2,9 @@ import { seasonService,
          raceService,
          newsService,
          resultService } from '../services'
-import { HomeHero,
-         HomeInfo,
-         HomeNews } from '../lib/components'
+import { Hero,
+         Info,
+         News } from '../lib/pages/Home'
 
 
 export const getServerSideProps = async () => {
@@ -22,6 +22,7 @@ export const getServerSideProps = async () => {
   }).sort((a,b) => b.points - a.points).slice(0,3)
   const report = await newsService.getRaceReport(lastRace.season, lastRace.country)
   const F1News = await newsService.getFormula1News()
+  const skyF1News = await newsService.getSkyF1News()
 
   return {
     props: {
@@ -30,7 +31,8 @@ export const getServerSideProps = async () => {
       results,
       podium,
       report,
-      F1News
+      F1News,
+      skyF1News
     }
   }
 }
@@ -41,17 +43,27 @@ const Home = ({
   results,
   podium,
   report,
-  F1News
+  F1News,
+  skyF1News
 }) => {
 
 
   return (
     <main>
-      <HomeHero lastRace={lastRace}
+      <Hero lastRace={lastRace}
                 podium={podium}
                 report={report} />
-      <HomeInfo />
-      <HomeNews articles={F1News} />
+      <Info schdule={season.schdule}
+            lastRace={lastRace} />
+      <section className="container py-12">
+        <div className="brd border-b  mb-8">
+          <h2>F1 News</h2>
+        </div>
+        <News title='Officel Formula 1'
+              articles={F1News} />
+        <News title='Sky Sports F1'
+              articles={skyF1News} />
+      </section>
     </main>
   )
 }

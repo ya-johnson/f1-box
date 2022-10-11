@@ -63,5 +63,15 @@
   .sdw {
     @apply hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)];
   }
+
+  /* swiper */
+
+  .swiper {
+    @apply flex flex-col;
+  }
+
+  .swiper .swiper-pagination {
+    @apply relative py-8;
+  }
   
 }
