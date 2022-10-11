@@ -1,12 +1,18 @@
+import { Swiper,
+         SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper'
 import { BsGraphUp, 
          BsArrowsCollapse,
          BsFlag } from 'react-icons/bs'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 
-const HomeInfo = () => {
+const Info = ({ schdule, lastRace }) => {
+
 
   return (
-    <section className="container mb-28">
+    <section className="container mb-14">
       <div className="mb-10">
         <h2>F1 Data made Easy</h2>
         <p>In depth Analytics about Races, Drivers, Constructors and more.<br/>
@@ -59,9 +65,28 @@ const HomeInfo = () => {
           </p>
         </div>
       </div>
+      <Swiper slidesPerView={6}
+              spaceBetween={40}
+              initialSlide={lastRace.round}
+              pagination={{clickable: true}}
+              modules={[Pagination]}>
+        {schdule.map(race => {
+          return (
+          <SwiperSlide>
+            <div className={`h-36 p-4 brd border rounded-xl bg-neutral-300 dark:bg-neutral-700
+                             ${race.round === lastRace.round &&
+                             'bg-amber-400 dark:bg-amber-400 text-neutral-900'}`}>
+              <p className="text-lg font-medium">{race.name}</p>
+              <p>{`Round: ${race.round}`}</p>
+              <p>{race.country}</p>
+            </div>
+          </SwiperSlide>
+          )
+        })}
+      </Swiper>
     </section>
   )
 }
 
 
-export default HomeInfo
+export default Info

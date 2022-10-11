@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { Table } from '../ui'
+import { Table } from '../../ui'
 import Flag from 'react-world-flags'
 
 
-const HomeHero = ({ lastRace, podium, report }) => {
+const Hero = ({ lastRace, podium, report }) => {
 
 
   return (
@@ -44,4 +44,4 @@ const HomeHero = ({ lastRace, podium, report }) => {
 }
 
 
-export default HomeHero
+export default Hero
