@@ -56,7 +56,7 @@ const Nav = () => {
 
   return (
       
-    <nav className="sticky w-screen flex justify-center mb-14 h-16 z-30
+    <nav className="sticky top-0 left-0 w-screen flex justify-center mb-14 h-16 z-30
                   bg-neutral-200 dark:bg-neutral-800 brd border-b">
       <div className="container flex items-center justify-between">
         
