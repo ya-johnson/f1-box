@@ -1,31 +1,14 @@
-import { supabase } from '../utils'
+import { API_URL } from '../config'
+import axios from 'axios'
 
 
-const getLastPitId = async () => {
-  const { data, error } = await supabase.from('Pits')
-                                        .select('pitId')
-                                        .limit(1)
-                                        .order('pitId', { ascending: true })
-  return data[0]
-}
-
-const getRawPits = async (raceId) => {
-  const { data, error } = await supabase.from('Pits')
-                                        .select('*')
-                                        .eq('raceId', raceId)
-  return data
-}
-
-const getPits = async (raceId) => {
-  const { data, error } = await supabase.from('Pits')
-                                        .select('*')
-                                        .eq('raceId', raceId)
+const getRacePits = async (season, round) => {
+  const response = await axios.get(`${API_URL}/${season}/${round}/pitstops.json?limit=200`)
+  const data = await response.data.MRData.RaceTable.Races.PitStops
   return data
 }
 
 
 export {
-  getLastPitId,
-  getRawPits,
-  getPits
+  getRacePits
 }
