@@ -9,6 +9,7 @@ const getAllDrivers = async () => {
   const drivers = data.map(driver => {
     return {
       driver: `${driver.givenName} ${driver.familyName}`,
+      driverId: driver.Driver.driverId,
       number: driver.permanentNumber,
       code: driver.code,
       birth: driver.dateOfBirth,
@@ -26,6 +27,7 @@ const getSeasonDrivers = async (season) => {
   const drivers = data.map(driver => {
     return {
       driver: `${driver.givenName} ${driver.familyName}`,
+      driverId: driver.Driver.driverId,
       number: driver.permanentNumber,
       code: driver.code,
       birth: driver.dateOfBirth,

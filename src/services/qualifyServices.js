@@ -5,7 +5,9 @@ const mapQualify = (qualify) => {
   const mappedQualify = qualify.map(result => {
     const qualifyResult = {
       driver: `${result.Driver.givenName} ${result.Driver.familyName}`,
+      driverId: driver.Driver.driverId,
       constructor: result.Constructor.name,
+      constructorId: result.Constructor.constructorId,
       number: result.number,
       position: result.position,
       Q1: result.Q1,

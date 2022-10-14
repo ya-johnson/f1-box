@@ -1,4 +1,3 @@
-import * as dbService from './dbServices'
 import * as raceService from './raceServices'
 import * as resultService from './resultServices'
 import * as qualifyService from './qualifyServices'
@@ -13,7 +12,6 @@ import * as wikiService from './wikiServices'
 
 
 export {
-  dbService,
   raceService,
   resultService,
   qualifyService,

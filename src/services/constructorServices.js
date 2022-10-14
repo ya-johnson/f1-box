@@ -9,6 +9,7 @@ const getAllConstructors = async () => {
   const constructors = data.map(constructor => {
     return {
       constructor: constructor.name,
+      constructorId: constructor.constructorId,
       nationality: constructor.nationality,
       url: constructor.url
     }
@@ -23,6 +24,7 @@ const getSeasonConstructors = async (season) => {
   const constructors = data.map(constructor => {
     return {
       constructor: constructor.name,
+      constructorId: constructor.constructorId,
       nationality: constructor.nationality,
       url: constructor.url
     }

@@ -6,19 +6,25 @@ const mapResults = (results) => {
   const mappedResults = results.map(result => {
     const raceResult = {
       driver: `${result.Driver.givenName} ${result.Driver.familyName}`,
-      constructor:result.Constructor.constructorId,
+      driverId: driver.Driver.driverId,
+      constructor: result.Constructor.name,
+      constructorId: result.Constructor.constructorId,
       number: result.number,
       grid: result.grid,
       position: result.position,
       points: result.points,
       laps: result.laps,
-      fastestLap: {
+
+      status: result.status
+    }
+
+    if (result.FastestLap) {
+      raceResult.fastestLap = {
         lap: result.FastestLap.lap,
         rank: result.FastestLap.rank,
         fastestLapTime: result.FastestLap.Time.time,
         fastestLapSpeed: result.FastestLap.AverageSpeed.speed
-      },
-      status: result.status
+      }
     }
 
     if (result.Time) {

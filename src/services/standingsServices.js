@@ -8,6 +8,7 @@ const getDriverStandings = async (season, round) => {
   const driverStandings = data.map( driver => {
     return {
       driver: `${driver.Driver.givenName} ${driver.Driver.familyName}`,
+      driverId: driver.Driver.driverId,
       number: driver.Driver.permanentNumber,
       wins: driver.wins,
       position: driver.position,
@@ -22,7 +23,8 @@ const getConstructorStandings = async (season, round) => {
   const data = await response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
   const constructorStandings = data.map( constructor => {
     return {
-      constructor: constructor.Constructor.name,
+      constructor: result.Constructor.name,
+      constructorId: result.Constructor.constructorId,
       position: constructor.position,
       wins: constructor.wins,
       points: constructor.points,
