@@ -1,4 +1,5 @@
 import { API_URL } from '../config'
+import { colors } from '../utils'
 import axios from 'axios'
 
 
@@ -6,16 +7,16 @@ const mapResults = (results) => {
   const mappedResults = results.map(result => {
     const raceResult = {
       driver: `${result.Driver.givenName} ${result.Driver.familyName}`,
-      driverId: driver.Driver.driverId,
+      driverId: result.Driver.driverId,
       constructor: result.Constructor.name,
       constructorId: result.Constructor.constructorId,
+      color: colors.getConstructorColor(result.Constructor.name),
       number: result.number,
       grid: result.grid,
       position: result.position,
       points: result.points,
       laps: result.laps,
-
-      status: result.status
+      status: result.status,
     }
 
     if (result.FastestLap) {

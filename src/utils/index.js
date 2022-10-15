@@ -1,6 +1,6 @@
-import * as datify from './datify'
+import * as colors from './colors'
 
 
 export {
-  datify
+  colors
 }
