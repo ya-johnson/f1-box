@@ -3,7 +3,6 @@ import { driverService ,wikiService } from '../../../services'
 
 const handler = async (req, res) => {
   const { season } = req.query
-  console.log(season)
   const driversData = await driverService.getSeasonDrivers(season)
   const drivers = await Promise.all(driversData.map(async driver => {
     return {
