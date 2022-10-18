@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 
-const Info = ({ schdule, lastRace }) => {
+const Info = ({ schedule, lastRace }) => {
 
 
   return (
@@ -60,7 +60,7 @@ const Info = ({ schdule, lastRace }) => {
               initialSlide={lastRace.round}
               pagination={{clickable: true}}
               modules={[Pagination]}>
-        {schdule.map(race => {
+        {schedule.map(race => {
           return (
           <SwiperSlide>
             <div className={`h-36 p-4 brd border rounded-xl bg-neutral-300 dark:bg-neutral-700

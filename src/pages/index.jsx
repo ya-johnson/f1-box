@@ -10,7 +10,6 @@ import { Hero,
 export const getServerSideProps = async () => {
   const season = await seasonService.getSeasonSchdule()
   const lastRace = await raceService.getLastRace()
-  const nextRace = season.schdule[lastRace.round]
   const results = await resultService.getResults(lastRace.season, lastRace.round)
   const podium = results.map(result => {
     return {
@@ -53,7 +52,7 @@ const Home = ({
       <Hero lastRace={lastRace}
                 podium={podium}
                 report={report} />
-      <Info schdule={season.schdule}
+      <Info schedule={season.schedule}
             lastRace={lastRace} />
       <section className="container py-12">
         <div className="brd border-b  mb-8">
