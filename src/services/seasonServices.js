@@ -5,7 +5,7 @@ import axios from 'axios'
 const mapSchedule = (season) => {
   const schedule = {
     season: season.season,
-    schdule: season.Races.map(race => {
+    schedule: season.Races.map(race => {
       const raceInfo = {
         season: race.season,
         round: race.round,
@@ -16,30 +16,42 @@ const mapSchedule = (season) => {
         city: race.Circuit.Location.locality,
         date: race.date,
         time: race.time,
-        firstPractice: {
+      }
+
+      if (race.FirstPractice) {
+        raceInfo.firstPractice = {
           date: race.FirstPractice.date,
           time: race.FirstPractice.time,
-        },
-        secondPractice: {
+        }
+      }
+
+      if (race.SecondPractice) {
+        raceInfo.secondPractice = {
           date: race.SecondPractice.date,
           time: race.SecondPractice.time,
-        },
-        qualifying: {
+        }
+      }
+
+      if (race.ThirdPractice) {
+        raceInfo.secondPractice = {
+          date: race.ThirdPractice.date,
+          time: race.ThirdPractice.time,
+        }
+      }
+
+      if (race.Qualifying) {
+        raceInfo.qualifying = {
           date: race.Qualifying.date,
           time: race.Qualifying.time
         }
       }
 
-      race.Sprint ? 
+      if (race.Sprint) {
         raceInfo.sprint = {
           date: race.Sprint.date,
           time: race.Sprint.time
         } 
-        :
-        raceInfo.thirdPractice = {
-          date: race.ThirdPractice.date,
-          time: race.ThirdPractice.time,
-        }
+      }
 
       return raceInfo
     }) 
@@ -63,8 +75,15 @@ const getSeasonSchdule = async (year) => {
   return schedule
 }
 
+const getAllSeasonsSchedules = async () => {
+  const seasons = await getSeasonsList()
+  const schedules = await Promise.all(seasons.map(async season => await getSeasonSchdule(season)))
+  return schedules
+}
+
 
 export {
   getSeasonsList,
-  getSeasonSchdule
+  getSeasonSchdule,
+  getAllSeasonsSchedules
 }

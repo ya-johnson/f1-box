@@ -5,20 +5,22 @@ import { seasonService, raceService } from '../../services'
 
 const Intro = () => {
 
-  const setSeasonsList = useGlobalStore(state => state.setSeasonsList)
-  const setSeason = useGlobalStore(state => state.setSeason)
   const setLastRace = useGlobalStore(state => state.setLastRace)
   const setNextRace = useGlobalStore(state => state.setNextRace)
+  const setSeasons = useGlobalStore(state => state.setSeasons)
+  const setSchedules = useGlobalStore(state => state.setSchedules)
+  const getRaceInfo = useGlobalStore(state => state.getRaceInfo)
 
   const getGlobalData = async () => {
-    const seasonsList = await seasonService.getSeasonsList() 
-    const season = await seasonService.getSeasonSchdule()
+    const seasons = await seasonService.getSeasonsList()
+    const schedules = await seasonService.getAllSeasonsSchedules()
     const lastRace = await raceService.getLastRace()
-    const nextRace = season.schdule[lastRace.round]
-    setSeasonsList(seasonsList)
-    setSeason(season)
+    const nextRace = getRaceInfo(schedules, lastRace.season, parseInt(lastRace.round) + 1)
+
+    setSeasons(seasons)
     setLastRace(lastRace)
     setNextRace(nextRace)
+    setSchedules(schedules)
   }
 
 
