@@ -1,4 +1,4 @@
-import { constructorService ,wikiService } from '../../../services'
+import { constructorService ,wikiService } from '../../../../services'
 
 
 const handler = async (req, res) => {
