@@ -4,12 +4,7 @@ import axios from 'axios'
 
 const useConstructorsGrid = (season) => {
   
-  const fetcher = async (url) => {
-    const response = await axios.get(url)
-    const data = await response.data
-    return data
-  }
-
+  const fetcher = url => axios.get(url).then(res => res.data)
   const { data, error } = useSwr(`api/constructors/grid/${season}`, fetcher)
   
   return {
