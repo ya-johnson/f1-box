@@ -1,15 +1,8 @@
 import dynamic from 'next/dynamic'
 
 
-const ConstructorsPage = dynamic(() => import('../lib/pages/ConstructorsPage'), { ssr: false })
+const Constructors = dynamic(() => import('../lib/pages/Constructors'), { ssr: false })
+const Page = () => <Constructors />
 
 
-const Constructors = () => {
-  
-  return (
-    <ConstructorsPage />
-  )
-}
-
-
-export default Constructors
+export default Page

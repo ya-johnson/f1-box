@@ -1,15 +1,8 @@
 import dynamic from 'next/dynamic'
 
 
-const DriversPage = dynamic(() => import('../lib/pages/DriversPage'), { ssr: false })
+const Drivers = dynamic(() => import('../lib/pages/Drivers'), { ssr: false })
+const Page = () => <Drivers />
 
 
-const Drivers = () => {
-  
-  return (
-    <DriversPage />
-  )
-}
-
-
-export default Drivers
+export default Page

@@ -1,29 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useGlobalStore } from '../../store'
-import axios from 'axios'
 import { Loader, Dropdown } from '../ui'
+import Link from 'next/link'
+import useSwr from 'swr'
+import axios from 'axios'
 
 
-const DriversPage = () => {
+const Drivers = () => {
 
-  const currentSeason = useGlobalStore(state => state.season.season)
-  const seasonsList = useGlobalStore(state => state.seasonsList)
-  const [drivers, setDrivers] = useState()
+  const currentSeason = useGlobalStore(state => state.lastRace.season)
+  const seasons = useGlobalStore(state => state.seasons)
   const [season, setSeason] = useState(currentSeason)
-  const [loading, setLoading] = useState(true)
 
-  const getDrivers = async () => {
-    setLoading(true)
-    const response = await axios.get(`/api/drivers/${season}`)
-    const drivers = await response.data
-    setDrivers(drivers)
-    setLoading(false)
-  }
-
-
-  useEffect(() => {
-    getDrivers()
-  }, [season])
+  const fetcher = url => axios.get(url).then(res => res.data)
+  const { data, error } = useSwr(`api/drivers/grid/${season}`, fetcher)
 
   
   return (
@@ -32,13 +22,13 @@ const DriversPage = () => {
         <h1>Drivers</h1>
         <Dropdown type='select'
                     title='season:'
-                    list={seasonsList.reverse()}
+                    list={seasons}
                     defaultItem={currentSeason}
                     setItem={setSeason} />
       
-      { loading ? <Loader /> :
+      { !data && !error ? <Loader /> :
         <div className="flex flex-wrap space-x-8 space-y-8 my-10">
-        { drivers.map(driver => {
+        { data.map(driver => {
           return (
             <div className="card">
               <img src={driver.image} className="w-[250px] h-[280px] object-center rounded-t-xl" />
@@ -56,4 +46,4 @@ const DriversPage = () => {
 }
 
 
-export default DriversPage
+export default Drivers
