@@ -2,7 +2,7 @@ import create from 'zustand'
 
 // seasons: { sesaon, schedule, grid, constructors }
 
-const getSeasonScehdule = (schedules, year) => {
+const getSeasonSchedule = (schedules, year) => {
   const season = schedules.filter(season => season.season == year)
   return season[0].schedule
 }
@@ -21,8 +21,8 @@ const useGlobalStore = create(set => ({
   seasons: null,
   setSeasons: (list) => set(() => ({ seasons: list })),
   schedules: null,
-  setSchedules: (schdules) => set(() => ({ schdules: schdules })),
-  getSeasonScehdule,
+  setSchedules: (schedules) => set(() => ({ schedules: schedules })),
+  getSeasonSchedule,
   getRaceInfo
 }))
 
