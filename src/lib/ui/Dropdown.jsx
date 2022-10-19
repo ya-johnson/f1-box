@@ -35,7 +35,7 @@ const Dropdown = ({
 
 
   return (
-    <div className={`relative cursor-pointer w-min 
+    <div className={`relative cursor-pointer mb-8
                      py-2 px-4 border brd rounded-lg
                    bg-neutral-300 dark:bg-neutral-700 
                      ${className && className} ${isMenu}`}
@@ -45,7 +45,8 @@ const Dropdown = ({
         <span>{title}</span>
         { selected && 
           <div className="flex items-center pl-2 rounded-md
-                        bg-blue-400 dark:bg-blue-500">{selected}
+                        bg-blue-400 dark:bg-blue-500">
+            <p>{selected}</p>
             <div className="h-full ml-2 p-1 rounded-r-md 
                           bg-neutral-400 dark:bg-neutral-500">
               <IoMdCloseCircleOutline className="h-5 w-5 hover:text-red-600" 
