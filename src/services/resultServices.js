@@ -10,7 +10,7 @@ const mapResults = (results) => {
       driverId: result.Driver.driverId,
       constructor: result.Constructor.name,
       constructorId: result.Constructor.constructorId,
-      color: colors.getConstructorColor(result.Constructor.name),
+      // color: colors.getConstructorColor(result.Constructor.name),
       number: result.number,
       grid: result.grid,
       position: result.position,

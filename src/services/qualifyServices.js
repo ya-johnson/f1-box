@@ -29,7 +29,15 @@ const mapQualify = (qualify) => {
   return mappedQualify
 }
 
+const getQualify = async (season, round) => {
+  const response = await axios.get(`${API_URL}/${season}/${round}/qualifying`)
+  const data = await response.data.MRData.Races.Qualifying
+  const qualify = mapQualify(data)
+  return qualify
+}
+
 
 export {
-  mapQualify
+  mapQualify,
+  getQualify
 }
