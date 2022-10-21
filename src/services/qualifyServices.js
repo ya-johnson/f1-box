@@ -9,7 +9,7 @@ const mapQualify = (qualify) => {
       driverId: result.Driver.driverId,
       constructor: result.Constructor.name,
       constructorId: result.Constructor.constructorId,
-      color: colors.getConstructorColor(result.Constructor.name),
+      // color: colors.getConstructorColor(result.Constructor.name),
       number: result.number,
       position: result.position,
       Q1: result.Q1,
@@ -30,8 +30,8 @@ const mapQualify = (qualify) => {
 }
 
 const getQualify = async (season, round) => {
-  const response = await axios.get(`${API_URL}/${season}/${round}/qualifying`)
-  const data = await response.data.MRData.Races.Qualifying
+  const response = await axios.get(`${API_URL}/${season}/${round}/qualifying.json`)
+  const data = await response.data.MRData.RaceTable.Races[0].QualifyingResults
   const qualify = mapQualify(data)
   return qualify
 }
