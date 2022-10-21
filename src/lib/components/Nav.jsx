@@ -13,6 +13,7 @@ const Nav = () => {
   const theme = useThemeStore(state => state.theme)
   const setTheme = useThemeStore(state => state.setTheme)
   const [menu, setMenu] = useState(false)
+  const [counter, setCounter] = useState()
 
   const styleLink = (path) => {
     const router = useRouter()
@@ -22,6 +23,17 @@ const Nav = () => {
     } else {
       return 'hover:text-amber-400'
     }
+  }
+
+  const countdwon = () => {
+    const remaining = new Date(`${nextRace.date} ${nextRace.time}`) - new Date()
+    const counter = {
+      days: Math.floor(remaining / (1000 * 60 * 60 * 24)),
+      hours: Math.floor(remaining / (1000 * 60 * 60)) % 24,
+      minutes: Math.floor(remaining / (1000 * 60)) % 60,
+      seconds: Math.floor(remaining / 1000) % 60
+    }
+    setCounter(counter)
   }
 
   const toggleMenu = () => {
@@ -49,8 +61,11 @@ const Nav = () => {
   }
 
 
+  setInterval(countdwon, 1000)
+
   useEffect(() => {
     initTheme()
+    countdwon()
   }, [])
 
 
@@ -58,7 +73,7 @@ const Nav = () => {
       
     <nav className="sticky top-0 left-0 w-screen flex justify-center mb-14 h-16 z-30
                   bg-neutral-200 dark:bg-neutral-800 brd border-b">
-      <div className="container flex items-center justify-between">
+      <div className="w-full px-4 max-w-[2200px] flex items-center justify-between">
         
         <div className="flex items-center space-x-12 lg:space-x-0">
           <Link href='/'>
@@ -89,9 +104,17 @@ const Nav = () => {
           }
           <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
                   onClick={toggleMenu}/>
-          <div className="flex items-center space-x-2 py-1 px-2 brd border rounded-md">
-            <Flag code={nextRace.country.slice(0,3)} className="h-5"/>
-            <p>{`${nextRace.country}: ${nextRace.time}`}</p>
+          <div className="flex items-center justify-between space-x-2 py-1 pl-4 pr-2 brd border rounded-md lg:hidden">
+            <div className="flex items-center space-x-2">
+              <Flag code={nextRace.country.slice(0,3)} className="h-5"/>
+              <p>{`${nextRace.country}:`}</p>
+            </div>
+            { counter && <div className="flex items-center space-x-1">
+              <p>{`${counter.days}d`}</p>
+              <p>{`${counter.hours}h`}</p>
+              <p>{`${counter.minutes}m`}</p>
+              <p className="w-8">{`${counter.seconds}s`}</p>
+            </div>}
           </div>
         </div>
 
