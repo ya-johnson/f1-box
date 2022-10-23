@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useGlobalStore } from '../../store'
 import { Dropdown } from '../ui'
 
-// fix: limit current season rounds list, set initial to last race
 
 const RoundControls = ({ setRace }) => {
 
@@ -15,10 +14,18 @@ const RoundControls = ({ setRace }) => {
   const [seasonSchedule, setSeasonSchedule] = useState()
 
   const mapRounds = () => {
-    const schedule = getSeasonSchedule(schedules, season)
-    const rounds = schedule.map(race => `${race.round}-${race.name}`)
-    setSeasonSchedule(rounds)
-    setRound(rounds[0])
+    if (season == lastRace.season) {
+      const schedule = getSeasonSchedule(schedules, season)
+      const upToLastRace = schedule.filter(race => race.round <= parseInt(lastRace.round))
+      const rounds = upToLastRace.map(race => `${race.round}-${race.name}`)
+      setSeasonSchedule(rounds)
+      setRound(rounds[parseInt(lastRace.round) - 1])
+    } else {
+      const schedule = getSeasonSchedule(schedules, season)
+      const rounds = schedule.map(race => `${race.round}-${race.name}`)
+      setSeasonSchedule(rounds)
+      setRound(rounds[0])
+    }
   }
 
 

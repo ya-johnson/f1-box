@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { IoMdArrowDropdown, IoMdCloseCircleOutline } from 'react-icons/io'
 
 
@@ -32,6 +32,10 @@ const Dropdown = ({
       toggleDropdown()
     }
   }
+
+  useEffect(() => {
+    setSelected(defaultItem)
+  }, [defaultItem])
 
 
   return (
