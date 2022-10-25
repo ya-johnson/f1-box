@@ -2,24 +2,23 @@ import { standingsService } from '../../../services'
 
 const setChartData = (type, standings) => {
   if (type === 'drivers') {
-    const data = {
-      labels: standings.map(driver => driver.driver),
-      datasets: [{
-        data: standings.map(driver => driver.points),
-        backgroundColor: standings.map(driver => driver.color),
-      }],
+    const data = standings.map(driver => {
+      return {
+        name: driver.driver,
+        points: parseInt(driver.points)
+      }
+    })
 
-    }
     return data
   } 
   else if (type === 'constructors') {
-    const data = {
-      labels: standings.map(constructor => constructor.constructor),
-      datasets: [{
-        data: standings.map(constructor => constructor.points),
-        backgroundColor: standings.map(constructor => constructor.color),
-      }]
-    }
+    const data = standings.map(constructor => {
+      return {
+        name: constructor.constructor,
+        points: parseInt(constructor.points)
+      }
+    })
+    
     return data
   }
 }

@@ -1,21 +1,18 @@
 import { useState } from 'react'
 import { RoundControls } from '../components'
 import { Loader, Table } from '../ui'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { Pie } from 'react-chartjs-2'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import useSwr from 'swr'
 import axios from 'axios'
 
+// fix ticks margin
 
 const Standings = () => {
 
   const [race, setRace] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const { data, error } = useSwr(race ? `api/standings/${race.season}-${race.round}` : null, fetcher)
-
-  ChartJS.register(ArcElement, Tooltip, Legend)
-  
+  const { data, error } = useSwr(race ? `api/standings/${race.season}-${race.round}` : null, fetcher)  
 
   return (
     <main>
@@ -33,12 +30,19 @@ const Standings = () => {
                 <h2>Drivers</h2>
                 <div className="flex">
                   <Table cols={Object.keys(data.drivers.standings[0])} 
-                        rows={data.drivers.standings} 
-                        width={'min-w-[600px]'}/>
+                         rows={data.drivers.standings} 
+                         width={'min-w-[600px]'}/>
                   <div className="w-full flex justify-center">
-                    <div className="w-2/3">
-                      <Pie data={data.drivers.chart} />
-                    </div>
+                    <ResponsiveContainer>
+                      <BarChart data={data.drivers.chart} barCategoryGap={'15%'}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" angle={45} interval={0} />
+                        <YAxis dataKey="points"/>
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="points" fill="#FBBF24" />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>
@@ -47,11 +51,20 @@ const Standings = () => {
                 <h2>Constructors</h2>
                 <div className="flex">
                   <Table cols={Object.keys(data.constructors.standings[0])} 
-                        rows={data.constructors.standings} 
-                        width={'min-w-[400px]'}/>
+                         rows={data.constructors.standings} 
+                         width={'min-w-[400px]'}/>
                   <div className="w-full flex justify-center">
                     <div className="w-2/5">
-                      <Pie data={data.constructors.chart} />
+                      <ResponsiveContainer>
+                        <BarChart data={data.constructors.chart} barCategoryGap={'15%'}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="name" angle={45} interval={0} />
+                          <YAxis dataKey="points"/>
+                          <Tooltip />
+                          <Legend />
+                          <Bar dataKey="points" fill="#FBBF24" />
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
                 </div>
