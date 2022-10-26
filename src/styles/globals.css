@@ -73,5 +73,23 @@
   .swiper .swiper-pagination {
     @apply relative py-8;
   }
+
+  /* toastify */
+
+  .toast-container {
+    @apply w-[540px];
+  }
+
+  .toast-body {
+    @apply text-neutral-800 dark:text-neutral-300 
+           bg-neutral-200 dark:bg-neutral-800
+             border border-solid
+           border-neutral-700 dark:border-neutral-500;
+  }
+
+  .toast-body > .Toastify__close-button--light,
+  .toast-body > .Toastify__close-button--dark {
+    @apply text-neutral-800 dark:text-neutral-300;
+  }
   
 }
