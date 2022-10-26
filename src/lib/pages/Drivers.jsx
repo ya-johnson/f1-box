@@ -19,13 +19,12 @@ const Drivers = () => {
     <main>
       <section className="container">
         <h1>Drivers</h1>
-        <div>
-          <Dropdown type='select'
+        <Dropdown type='select'
+                    className='w-min'
                     title='season:'
                     list={seasons}
                     defaultItem={currentSeason}
                     setItem={setSeason} />
-        </div>
       
       { !data && !error ? <Loader /> :
         <div className="grid grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-20 my-10">
@@ -35,7 +34,7 @@ const Drivers = () => {
               <img src={driver.image} className="w-full h-[360px] object-center rounded-t-xl" />
               <div className="h-max p-8 space-y-1 rounded-b-xl">
                 <Link href={driver.url} target="_blank">
-                  <a className="text-3xl font-400 hover:font-semibold duration-75">{driver.driver}</a>
+                  <a className="text-3xl font-400 hover:font-semibold duration-75" target="_blank">{driver.driver}</a>
                 </Link>
                 <p>{`Number: ${driver.number}`}</p>
                 <p>{`Date of Birth: ${driver.birth}`}</p>
