@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { useGlobalStore } from '../store'
-import { ToastContainer, toast } from 'react-toastify'
+import { Footer } from '../lib/components'
+import { ToastContainer, toast, Slide } from 'react-toastify'
 import { toastify } from '../utils'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
@@ -47,9 +48,11 @@ const MyApp = ({ Component, pageProps }) => {
         <ToastContainer position='top-center'
                         hideProgressBar={true}
                         className='toast-container'
-                        toastClassName='toast-body' />
+                        toastClassName='toast-body' 
+                        transition={Slide} />
         <Nav />
         <Component {...pageProps} />
+        <Footer />
       </>
     }
     </>
