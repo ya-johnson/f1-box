@@ -41,6 +41,27 @@ const constructorsColors = [
   },
 ]
 
+const random = ['rgb(211, 132, 244)', 
+                'rgb(161, 255, 158)',
+                'rgb(117, 129, 239)',
+                'rgb(118, 238, 247)',
+                'rgb(239, 141, 152)',
+                'rgb(183, 173, 244)',
+                'rgb(255, 127, 252)',
+                'rgb(203, 247, 121)',
+                'rgb(249, 246, 144)',
+                'rgb(207, 247, 7)',
+                'rgb(249, 141, 17)',
+                'rgb(49, 113, 224)',
+                'rgb(252, 106, 80)',
+                'rgb(242, 236, 58)',
+                'rgb(162, 14, 247)',
+                'rgb(146, 255, 96)',
+                'rgb(206, 66, 77)',
+                'rgb(252, 78, 127)',
+                'rgb(91, 93, 211)',
+                'rgb(25, 152, 183)']
+
 const getConstructorColor = (constructorName) => {
   const constructorColor = constructorsColors.filter(constructor => constructor.name === constructorName)
   return constructorColor[0].color
@@ -49,5 +70,6 @@ const getConstructorColor = (constructorName) => {
 
 export {
   constructorsColors,
+  random,
   getConstructorColor
 }
