@@ -71,7 +71,7 @@ const Nav = () => {
 
   return (
       
-    <nav className="sticky top-0 left-0 w-screen flex justify-center mb-14 h-16 z-30
+    <nav className="sticky top-0 left-0 w-screen flex justify-center h-16 z-30
                   bg-neutral-300 dark:bg-neutral-900 brd border-b">
       <div className="w-full px-4 max-w-[2200px] flex items-center justify-between">
         
@@ -105,12 +105,12 @@ const Nav = () => {
           <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
                   onClick={toggleMenu}/>
           <div className="flex items-center justify-between space-x-2 
-                          py-1 pl-4 pr-2 brd border rounded-md lg:hidden">
+                          py-1 pl-4 pr-2 lg:hidden">
             <div className="flex items-center space-x-2">
               <Flag code={nextRace.country.slice(0,3)} className="h-5"/>
-              <p>{`${nextRace.country}:`}</p>
+              <p className='text-xl font-bold'>{`${nextRace.country}:`}</p>
             </div>
-            { counter && <div className="flex items-center space-x-1">
+            { counter && <div className="flex items-center space-x-1 font-bold">
               <p>{`${counter.days}d`}</p>
               <p>{`${counter.hours}h`}</p>
               <p>{`${counter.minutes}m`}</p>
