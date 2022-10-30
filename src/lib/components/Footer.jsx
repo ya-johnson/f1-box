@@ -17,7 +17,6 @@ const Footer = () => {
               <Link href='/Standings'><a className='hover:text-amber-400'>Standings</a></Link>
               <Link href='/Drivers'><a className='hover:text-amber-400'>Drivers</a></Link>
               <Link href='/Constructors'><a className='hover:text-amber-400'>Constructors</a></Link>
-              <Link href='/Compare'><a className='hover:text-amber-400'>Compare</a></Link>
               <Link href='/RaceSim'><a className='hover:text-amber-400'>Race Sim</a></Link>
               <Link href='/About'><a className='hover:text-amber-400'>About</a></Link>
             </div>

@@ -88,7 +88,6 @@ const Nav = () => {
             <Link href='/Standings'><a className={styleLink('/Standings')}>Standings</a></Link>
             <Link href='/Drivers'><a className={styleLink('/Drivers')}>Drivers</a></Link>
             <Link href='/Constructors'><a className={styleLink('/Constructors')}>Constructors</a></Link>
-            <Link href='/Compare'><a className={styleLink('/Compare')}>Compare</a></Link>
             <Link href='/RaceSim'><a className={styleLink('/RaceSim')}>Race Sim</a></Link>
             <Link href='/About'><a className={styleLink('/About')}>About</a></Link>
           </div>
