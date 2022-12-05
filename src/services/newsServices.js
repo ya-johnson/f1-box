@@ -5,9 +5,41 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 
 
-const getRaceReport = async (season, country) => {
-  const url = `${FORMULA1_URL}/en/racing/${season}/${country}.html`
+const formula1GPNamesByCircuitId = {
+  bahrain: 'Bahrain',
+  jeddah: 'Saudi_Arabia',
+  albert_park: 'Australia',
+  imola: 'EmiliaRomagna',
+  miami: 'Miami',
+  catalunya: 'Spain',
+  monaco: 'Monaco',
+  baku: 'Azerbaijan',
+  villeneuve: 'Canada',
+  silverstone: 'Great_Britain',
+  red_bull_ring: 'Austria',
+  ricard: 'France',
+  hungaroring: 'Hungary',
+  spa: 'Belgium',
+  zandvoort: 'Netherlands',
+  monza: 'Italy',
+  marina_bay: 'Singapore',
+  suzuka: 'Japan',
+  americas: 'United_States',
+  rodriguez: 'Mwxico',
+  interlagos: 'Brazil',
+  yas_marina: 'United_Arab_Emirates',
+  portimao: '',
+  sochi: '',
+  istanbul: '',
+  losail: '',
+  mugello: '',
+  nurburgring: '',
 
+}
+
+const getRaceReport = async (season, circuitId) => {
+  const formula1GPName = formula1GPNamesByCircuitId[circuitId]
+  const url = `${FORMULA1_URL}/en/racing/${season}/${formula1GPName}.html`
   const response = await axios.get(url)
   const data = await response.data
 

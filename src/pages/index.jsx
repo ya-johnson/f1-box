@@ -19,7 +19,7 @@ export const getServerSideProps = async () => {
       points: result.points,
     }
   }).sort((a,b) => b.points - a.points).slice(0,3)
-  const report = await newsService.getRaceReport(lastRace.season, lastRace.country)
+  const report = await newsService.getRaceReport(lastRace.season, lastRace.circuitId)
   const F1News = await newsService.getFormula1News()
   const skyF1News = await newsService.getSkyF1News()
 
@@ -48,7 +48,7 @@ const Home = ({
 
 
   return (
-    <main>
+    <main className="my-10">
       <Hero lastRace={lastRace}
                 podium={podium}
                 report={report} />
@@ -62,6 +62,9 @@ const Home = ({
               articles={F1News} />
         <News title='Sky Sports F1'
               articles={skyF1News} />
+      </section>
+      <section className="container">
+        <h2>FAQ</h2>
       </section>
     </main>
   )
