@@ -65,14 +65,14 @@ const Nav = () => {
 
   useEffect(() => {
     initTheme()
-    countdwon()
+    if (nextRace.date) countdwon()
   }, [])
 
 
   return (
       
     <nav className="sticky top-0 left-0 w-screen flex justify-center h-16 z-30
-                  bg-neutral-300 dark:bg-neutral-900 brd border-b">
+                  bg-neutral-200 dark:bg-neutral-900 brd border-b">
       <div className="w-full px-4 max-w-[2200px] flex items-center justify-between">
         
         <div className="flex items-center space-x-12 lg:space-x-0">
@@ -84,11 +84,10 @@ const Nav = () => {
                            lg:flex lg:flex-col p-4
                            lg:bg-neutral-300 lg:dark:bg-neutral-900 
                            lg:space-y-6 lg:space-x-0 ${menu && 'lg:left-0'}`}>
-            <Link href='/Races'><a className={styleLink('/Races')}>Races</a></Link>
-            <Link href='/Standings'><a className={styleLink('/Standings')}>Standings</a></Link>
+            <Link href='/PostRace'><a className={styleLink('/PostRace')}>Post Race</a></Link>
             <Link href='/Drivers'><a className={styleLink('/Drivers')}>Drivers</a></Link>
             <Link href='/Constructors'><a className={styleLink('/Constructors')}>Constructors</a></Link>
-            <Link href='/RaceSim'><a className={styleLink('/RaceSim')}>Race Sim</a></Link>
+            {/* <Link href='/RaceSim'><a className={styleLink('/RaceSim')}>Race Sim</a></Link> */}
             <Link href='/About'><a className={styleLink('/About')}>About</a></Link>
           </div>
         </div>
@@ -103,6 +102,7 @@ const Nav = () => {
           }
           <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
                   onClick={toggleMenu}/>
+          {nextRace.date && 
           <div className="flex items-center justify-between space-x-2 
                           py-1 pl-4 pr-2 lg:hidden">
             <div className="flex items-center space-x-2">
@@ -115,7 +115,7 @@ const Nav = () => {
               <p>{`${counter.minutes}m`}</p>
               <p className="w-8">{`${counter.seconds}s`}</p>
             </div>}
-          </div>
+          </div>}
         </div>
 
       </div>
