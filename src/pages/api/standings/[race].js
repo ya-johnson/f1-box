@@ -26,12 +26,10 @@ const setChartData = (type, standings) => {
 const handler = async (req, res) => {
   const { race } = req.query
   const [season, round] = race.split('-')
-  const driverStandingsData = await standingsService.getDriverStandings(season, round)
-  const constructorStandingsData = await standingsService.getConstructorStandings(season, round)
-  const driverStandings = standingsService.mapDriverStandings(driverStandingsData)
-  const constructorStandings = standingsService.mapConstructorStandings(constructorStandingsData)
-  const driverStandingsChart = setChartData('drivers', driverStandingsData)
-  const constructorStandingsChart = setChartData('constructors', constructorStandingsData)
+  const driverStandings = await standingsService.getDriverStandings(season, round)
+  const constructorStandings = await standingsService.getConstructorStandings(season, round)
+  const driverStandingsChart = setChartData('drivers', driverStandings)
+  const constructorStandingsChart = setChartData('constructors', constructorStandings)
   const data = {
     drivers: {
       standings: driverStandings,

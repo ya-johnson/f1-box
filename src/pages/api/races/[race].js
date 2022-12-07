@@ -14,8 +14,17 @@ const handler = async (req, res) => {
   const drivers = await driverService.getDriverPerRace(season, round)
   const laps = await lapService.getRaceLaps(season, round)
   const pits = await pitService.getRacePits(season, round)
-
-  res.status(200).json({ results, qualify, drivers, laps, pits })
+  const data = {
+    results: { table: resultService.mapResultsMin(results) },
+    qualify: { table: qualifyService.mapQualifyMin(qualify) },
+    laps: {
+      positionPerLap: lapService.mapPositionPerLap(laps),
+      lapsInMillis: lapService.mapLapsToMillis(laps)
+    },
+    pits
+  }
+  
+  res.status(200).json(data)
 }
 
 
