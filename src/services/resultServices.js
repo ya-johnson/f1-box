@@ -61,10 +61,24 @@ const mapResultsMin = (results) => {
   return resultsMin
 }
 
+const mapPodium = (results) => {
+  const podium = results.map(result => {
+    return {
+      position: result.position,
+      driver: result.driver,
+      time: result.time,
+      points: result.points,
+    }
+  }).sort((a,b) => b.points - a.points).slice(0,3)
+
+  return podium
+}
+
 
 export {
   getResults,
   mapResults,
-  mapResultsMin
+  mapResultsMin,
+  mapPodium
 }
 
