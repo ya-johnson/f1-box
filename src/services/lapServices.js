@@ -8,7 +8,37 @@ const getRaceLaps = async (season, round) => {
   return data
 }
 
+const mapLapsToMillis = (laps) => {
+  const lapTimes = laps.map(lap => {
+    const lapNumber = { name: lap.number }
+    lap.Timings.forEach(driverTime => {
+      const minutes = driverTime.time.split(':')[0] * 60
+      const seconds = driverTime.time.split(':')[1].split('.')[0]
+      const millis = driverTime.time.split(':')[1].split('.')[1]
+      // console.log(parseInt(minutes) + parseInt(seconds) + millis)
+      lapNumber[driverTime.driverId] = parseInt(parseInt(minutes) + parseInt(seconds) + millis)
+    })
+    return lapNumber
+  })
+
+  return lapTimes
+}
+
+const mapPositionPerLap = (laps) => {
+  const positionPerLap = laps.map(lap => {
+    const lapNumber = { name: lap.number }
+    lap.Timings.forEach((driverTime, index) => {
+      lapNumber[driverTime.driverId] = driverTime.position
+    })
+    return lapNumber
+  })
+
+  return positionPerLap
+}
+
 
 export {
-  getRaceLaps
+  getRaceLaps,
+  mapLapsToMillis,
+  mapPositionPerLap
 }

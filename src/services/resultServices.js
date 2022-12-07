@@ -3,8 +3,15 @@ import { colors } from '../utils'
 import axios from 'axios'
 
 
-const mapResults = (results) => {
-  const mappedResults = results.map(result => {
+const getResults = async (season, round) => {
+  const response = await axios.get(`${API_URL}/${season}/${round}/results.json`)
+  const data = await response.data.MRData.RaceTable.Races[0].Results
+  const results = mapResults(data)
+  return results
+}
+
+const mapResults = (data) => {
+  const results = data.map(result => {
     const raceResult = {
       driver: `${result.Driver.givenName} ${result.Driver.familyName}`,
       driverId: result.Driver.driverId,
@@ -36,19 +43,28 @@ const mapResults = (results) => {
     return raceResult
   })
 
-  return mappedResults
+  return results
 }
 
-const getResults = async (season, round) => {
-  const response = await axios.get(`${API_URL}/${season}/${round}/results.json`)
-  const data = await response.data.MRData.RaceTable.Races[0].Results
-  const results = mapResults(data)
-  return results
+const mapResultsMin = (results) => {
+  const resultsMin = results.map(result => {
+    return {
+      position: result.position,
+      driver: result.driver,
+      constructor: result.constructor,
+      time: result.time,
+      status: result.status,
+      points: result.points
+    }
+  })
+
+  return resultsMin
 }
 
 
 export {
+  getResults,
   mapResults,
-  getResults
+  mapResultsMin
 }
 
