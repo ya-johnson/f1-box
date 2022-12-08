@@ -1,48 +1,57 @@
-import { useState } from 'react'
-import { useGlobalStore } from '../../store'
-import { Loader, Dropdown } from '../ui'
+import { useState, useEffect} from 'react'
 import Link from 'next/link'
+import { Loader, Dropdown, Table} from '../ui'
 import useSwr from 'swr'
 import axios from 'axios'
 
 
 const Drivers = () => {
 
-  const currentSeason = useGlobalStore(state => state.lastRace.season)
-  const seasons = useGlobalStore(state => state.seasons)
-  const [season, setSeason] = useState(currentSeason)
+  const [selected, setSelected] = useState()
+  const [drivers, setDrivers] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const { data, error } = useSwr(`api/drivers/grid/${season}`, fetcher)
-  
+  const multiFetcher = drivers => {
+    Promise.all(drivers.map(driver => axios.get(`api/drivers/stats/${driver.driverId}`).then(res => res.data)))
+  }
+  const { data: driversData, error: driversDataError } = useSwr(drivers, multiFetcher)
+  const { data: allDrivers, error: allDriversError } = useSwr('api/drivers/all', fetcher)
+
+
+  useEffect(() => {
+    if (selected) {
+      const drivers = selected.map(selectedDriver => allDrivers.drivers.filter(driver => driver.driver === selectedDriver)[0])
+      setDrivers([drivers])
+    }
+  }, [selected])
+
+  useEffect(() => {
+    console.log(driversData)
+  }, [driversData])
+
+
   return (
     <main>
       <section className="container">
         <h1>Drivers</h1>
-        <Dropdown type='select'
-                    className='w-min'
-                    title='season:'
-                    list={seasons}
-                    defaultItem={currentSeason}
-                    setItem={setSeason} />
-      
-      { !data && !error ? <Loader /> :
-        <div className="grid grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-20 my-10">
-        { data.map(driver => {
-          return (
-            <div className="bg-neutral-300 dark:bg-neutral-700 rounded-xl">
-              <img src={driver.image} className="w-full h-[360px] object-center rounded-t-xl" />
-              <div className="h-max p-8 space-y-1 rounded-b-xl">
-                <Link href={driver.url} target="_blank">
-                  <a className="text-3xl font-400 hover:font-semibold duration-75" target="_blank">{driver.driver}</a>
-                </Link>
-                <p>{`Number: ${driver.number}`}</p>
-                <p>{`Date of Birth: ${driver.birth}`}</p>
-              </div>
-            </div>
-          )
-        })}
-        </div>
+        <p>Select 1 Driver to see his statistics.</p>
+        <p className="mb-4">Select multiple Drivers to preform a comparition.</p>
+      { !allDrivers ? <Loader /> :
+        <>
+          <Dropdown type='multi'
+                    className='min-w-[200px] max-w-[800px]'
+                    title='Drivers:'
+                    list={allDrivers.names}
+                    setItem={setSelected} />
+    
+          <div>
+          { allDrivers.drivers.map(driver => {
+            return (
+              <p className="mb-1">{driver.driver}</p>
+            )
+          })}
+          </div>    
+        </>
       }
       </section>
     </main>
