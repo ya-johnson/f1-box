@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useGlobalStore } from '../../store'
 import { Loader, Dropdown } from '../ui'
 import Link from 'next/link'
@@ -8,12 +8,32 @@ import axios from 'axios'
 
 const Constructors = () => {
 
-  const currentSeason = useGlobalStore(state => state.lastRace.season)
-  const seasons = useGlobalStore(state => state.seasons)
-  const [season, setSeason] = useState(currentSeason)
+  const [selected, setSelected] = useState()
+  const [constructors, setConstructors] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const { data, error } = useSwr(`api/constructors/grid/${season}`, fetcher)
+  const multiFetcher = arr => {
+    Promise.all(arr.map(constructor => {
+      axios.get(`api/constructors/stats/${constructor.constructorId}`).then(res => res.data)
+    }))
+  }
+  const { data: constructorsData, error: constructorsDataError } = useSwr(constructors, multiFetcher)
+  const { data: allConstructors, error: allConstructorsError } = useSwr('api/constructors/all', fetcher)
+
+
+  useEffect(() => {
+    if (selected) {
+      const constructors = selected.map(selectedConstructor => {
+        allConstructors.constructors.filter(constructor => constructor.constructor === selectedConstructor)[0]
+      })
+      setConstructors([constructors])
+    }
+  }, [selected])
+
+  useEffect(() => {
+    console.log(constructorsData)
+  }, [constructorsData])
+
   
   return (
     <main>
@@ -22,9 +42,8 @@ const Constructors = () => {
         <Dropdown type='select'
                   className='w-min'
                   title='season:'
-                  list={seasons}
-                  defaultItem={currentSeason}
-                  setItem={setSeason} />
+                  list={allConstructors.names}
+                  setItem={setSelected} />
                   
         { !data && !error ? <Loader /> :
             <div className="grid grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-20 my-10">
