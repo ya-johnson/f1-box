@@ -3,23 +3,21 @@ import { toPng } from 'html-to-image'
 import { AiOutlineSave } from 'react-icons/ai'
 
 
-const ToImg = ({ children }) => {
+const ToImg = ({ children, className }) => {
 
   const ref = useRef()
   const [icon, setIcon] = useState('hidden')
 
   const downloadAsImg = async () => {
-    ref.current.classList.add('p-4')
     const dataUrl = await toPng(ref.current, {cacheBust: true})
     const link = document.createElement('a')
     link.download = 'f1-box.png'
     link.href = dataUrl
     link.click()
-    ref.current.classList.remove('p-4')
   }
 
   return (
-    <div className="relative bg-neutral-100 dark:bg-neutral-800"
+    <div className={`${className} relative bg-neutral-100 dark:bg-neutral-800`}
          ref={ref} 
          onMouseOver={() => setIcon('block')} 
          onMouseLeave={() => setIcon('hidden')}>
