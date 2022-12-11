@@ -8,24 +8,27 @@ import axios from 'axios'
 const Drivers = () => {
 
   const [selected, setSelected] = useState()
-  const [drivers, setDrivers] = useState()
+  const [infoUrls, setInfoUrls] = useState()
+  const [statsUrls, setStatsUrls] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = async arr => {
-    return await Promise.all(arr.map( async driver => {
-      return await axios.get(`api/drivers/stats/${driver.driverId}`)
-    }))
-  }
-  const { data: driversData, error: driversDataError } = useSwr(drivers, multiFetcher)
+  const multiFetcher = arr => Promise.all(arr.map( url => axios.get(url).then(res => res.data)))
+  // const { data: driversInfo, error: driversInfoError } = useSwr(infoUrls, multiFetcher)
+  const { data: driversData, error: driversDataError } = useSwr(statsUrls, multiFetcher)
   const { data: allDrivers, error: allDriversError } = useSwr('api/drivers/all', fetcher)
 
 
   useEffect(() => {
     if (selected) {
-      const drivers = selected.map(selectedDriver => {
-        return allDrivers.drivers.filter(driver => driver.driver === selectedDriver)[0]
+      const infoUrls = selected.map(selDriver => {
+        return `api/drivers/info/${allDrivers.drivers.filter(driver => driver.driver === selDriver)[0].driverId}`
       })
-      setDrivers([drivers])
+      const statsUrls = selected.map(selDriver => {
+        return `api/drivers/stats/${allDrivers.drivers.filter(driver => driver.driver === selDriver)[0].driverId}`
+      })
+
+      setInfoUrls(infoUrls)
+      setStatsUrls([statsUrls])
     }
   }, [selected])
 

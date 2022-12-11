@@ -8,24 +8,20 @@ import axios from 'axios'
 const Constructors = () => {
 
   const [selected, setSelected] = useState()
-  const [constructors, setConstructors] = useState()
+  const [statsUrls, setStatsUrls] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = async arr => {
-    return await Promise.all(arr.map(async constructor => {
-      return await axios.get(`api/constructors/stats/${constructor.constructorId}`)
-    }))
-  }
-  const { data: constructorsData, error: constructorsDataError } = useSwr(constructors, multiFetcher)
+  const multiFetcher = arr => Promise.all(arr.map( url => axios.get(url).then(res => res.data)))
+  const { data: constructorsData, error: constructorsDataError } = useSwr(statsUrls, multiFetcher)
   const { data: allConstructors, error: allConstructorsError } = useSwr('api/constructors/all', fetcher)
 
 
   useEffect(() => {
     if (selected) {
-      const constructors = selected.map(selectedConstructor => {
-        allConstructors.constructors.filter(constructor => constructor.constructor === selectedConstructor)[0]
+      const statsUrls = selected.map(selCon => {
+        return `api/constructors/stats/${allConstructors.constructors.filter(con => con.constructor === selCon)[0].constructorId}`
       })
-      setConstructors([constructors])
+      setStatsUrls([statsUrls])
     }
   }, [selected])
 
