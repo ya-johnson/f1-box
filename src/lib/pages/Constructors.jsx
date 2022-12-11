@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useGlobalStore } from '../../store'
 import { Loader, Dropdown } from '../ui'
 import Link from 'next/link'
 import useSwr from 'swr'
@@ -12,9 +11,9 @@ const Constructors = () => {
   const [constructors, setConstructors] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = arr => {
-    Promise.all(arr.map(constructor => {
-      axios.get(`api/constructors/stats/${constructor.constructorId}`).then(res => res.data)
+  const multiFetcher = async arr => {
+    return await Promise.all(arr.map(async constructor => {
+      return await axios.get(`api/constructors/stats/${constructor.constructorId}`)
     }))
   }
   const { data: constructorsData, error: constructorsDataError } = useSwr(constructors, multiFetcher)

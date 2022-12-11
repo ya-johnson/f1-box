@@ -11,8 +11,10 @@ const Drivers = () => {
   const [drivers, setDrivers] = useState()
 
   const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = drivers => {
-    Promise.all(drivers.map(driver => axios.get(`api/drivers/stats/${driver.driverId}`).then(res => res.data)))
+  const multiFetcher = async arr => {
+    return await Promise.all(arr.map( async driver => {
+      return await axios.get(`api/drivers/stats/${driver.driverId}`)
+    }))
   }
   const { data: driversData, error: driversDataError } = useSwr(drivers, multiFetcher)
   const { data: allDrivers, error: allDriversError } = useSwr('api/drivers/all', fetcher)
@@ -20,12 +22,15 @@ const Drivers = () => {
 
   useEffect(() => {
     if (selected) {
-      const drivers = selected.map(selectedDriver => allDrivers.drivers.filter(driver => driver.driver === selectedDriver)[0])
+      const drivers = selected.map(selectedDriver => {
+        return allDrivers.drivers.filter(driver => driver.driver === selectedDriver)[0]
+      })
       setDrivers([drivers])
     }
   }, [selected])
 
   useEffect(() => {
+    console.log(selected)
     console.log(driversData)
   }, [driversData])
 
