@@ -1,8 +1,14 @@
 import { API_URL } from '../config'
-import { raceService,resultService, qualifyService } from '.'
+import { raceService, resultService, qualifyService } from '.'
 import { algs } from '../utils'
 import axios from 'axios'
 
+
+const getConstructorInfo = async (constructorId) => {
+  const response = await axios.get(`${API_URL}/constructors/${constructorId}.json`)
+  const constructor = await response.data
+  return constructor
+}
 
 const mapConstructors = (constructors) => {
   const mappedConstructors = constructors.map(constructor => {
@@ -77,6 +83,7 @@ const getRoundConstructorQualify = async (season, round, constructor) => {
 
 
 export {
+  getConstructorInfo,
   getAllConstructors,
   getSeasonConstructors,
   getAllConstructorResults,

@@ -1,8 +1,14 @@
 import { API_URL } from '../config'
-import { raceService ,resultService, qualifyService } from '.'
+import { raceService , resultService, qualifyService } from '.'
 import { algs } from '../utils'
 import axios from 'axios'
 
+
+const getDriverInfo = async (driverId) => {
+  const response = await axios.get(`${API_URL}/drivers/${driverId}.json`)
+  const driver = await response.data
+  return driver
+}
 
 const mapDrivers = (drivers) => {
   const mappedDrivers = drivers.map(driver => {
@@ -31,6 +37,19 @@ const getSeasonDrivers = async (season) => {
   const response = await axios.get(`${API_URL}/${season}/drivers.json`)
   const data = await response.data.MRData.DriverTable.Drivers
   const drivers = mapDrivers(data)
+  return drivers
+}
+
+const getDriverPerRace = async (season, round) => {
+  const response = await axios.get(`${API_URL}/${season}/${round}/drivers.json`)
+  const data = await response.data.MRData.DriverTable.Drivers
+  const drivers = data.map(driver => {
+    return {
+      driverId: driver.driverId,
+      name: `${driver.givenName} ${driver.familyName}`,
+      number: driver.number
+    }
+  })
   return drivers
 }
 
@@ -80,8 +99,10 @@ const getRoundDriverQualify = async (season, round, driver) => {
 
 
 export {
+  getDriverInfo,
   getAllDrivers,
   getSeasonDrivers,
+  getDriverPerRace,
   getAllDriverResults,
   getSeasonDriverResults,
   getRoundDriverResults,
