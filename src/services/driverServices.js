@@ -6,8 +6,16 @@ import axios from 'axios'
 
 const getDriverInfo = async (driverId) => {
   const response = await axios.get(`${API_URL}/drivers/${driverId}.json`)
-  const driver = await response.data
-  return driver
+  const driver = await response.data.MRData.DriverTable.Drivers[0]
+  return {
+    driver: `${driver.givenName} ${driver.familyName}`,
+    driverId: driver.driverId,
+    number: driver.permanentNumber,
+    code: driver.code,
+    birth: driver.dateOfBirth,
+    nationality: driver.nationality,
+    url: driver.url
+  }
 }
 
 const mapDrivers = (drivers) => {
@@ -97,6 +105,13 @@ const getRoundDriverQualify = async (season, round, driver) => {
   return results
 }
 
+const getDriverChampionships = async (driverId) => {
+  const response = await axios.get(`${API_URL}/drivers/${driverId}/driverStandings/1.json`)
+  const data = await response.data.MRData.StandingsTable.StandingsLists
+  const championships = data.map(season => season.season)
+  return championships
+}
+
 
 export {
   getDriverInfo,
@@ -108,5 +123,6 @@ export {
   getRoundDriverResults,
   getAllDriverQualify,
   getSeasonDriverQualify,
-  getRoundDriverQualify
+  getRoundDriverQualify,
+  getDriverChampionships
 }

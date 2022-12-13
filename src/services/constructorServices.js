@@ -81,6 +81,13 @@ const getRoundConstructorQualify = async (season, round, constructor) => {
   return results
 }
 
+const getConstructorChampionships = async (constructorId) => {
+  const response = await axios.get(`${API_URL}/constructors/${constructorId}/constructorStandings/1.json`)
+  const data = await response.data.MRData.StandingsTable.StandingsLists
+  const championships = data.map(season => season.season)
+  return championships
+}
+
 
 export {
   getConstructorInfo,
@@ -91,5 +98,6 @@ export {
   getRoundConstructorResults,
   getAllConstructorQualify,
   getSeasonConstructorQualify,
-  getRoundConstructorQualify
+  getRoundConstructorQualify,
+  getConstructorChampionships
 }
