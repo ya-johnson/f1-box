@@ -46,7 +46,7 @@ const Dropdown = ({ type,
     <div className="flex">
       <div className={`dropdown relative cursor-pointer mb-8
                        py-2 px-4 border brd rounded-lg
-                       bg-neutral-200 dark:bg-neutral-900 
+                       bg-white dark:bg-neutral-900 
                       ${className && className} ${drop}`}
            tabIndex="0" 
            onClick={toggleDropdown}
@@ -93,11 +93,12 @@ const Dropdown = ({ type,
         <div className={`${drop === 'dd-close' && 'opacity-0 invisible'} 
                         absolute top-[125%] left-0 -translate-x-[1px] overflow-scroll
                         w-[calc(100%+2px)] max-h-[calc(100%*4+8px)] py-2 px-4 space-y-2
-                        border brd rounded-lg bg-neutral-200 dark:bg-neutral-900 z-20`}>
+                        border brd rounded-lg bg-white dark:bg-neutral-900 z-20`}>
         {list.map((item, index) => {
           return (
             <div key={index} 
-                 className={`dd-item ${item === selected || selected.filter(listItem => listItem === item)[0] && 'text-amber-400'}`}
+                 className={`dd-item ${item === selected && 'text-amber-400'} 
+                             ${(type === 'multi' && selected.filter(listItem => listItem === item)[0]) && 'text-amber-400'}`}
                  onClick={() => onItemClick(item)}>
                  {item}
             </div>
