@@ -65,8 +65,7 @@ const getAllDriverResults = async (driver) => {
   const response = await axios.get(`${API_URL}/drivers/${driver}/results.json?limit=2000`)
   const data = await response.data.MRData.RaceTable.Races
   const results = raceService.mapRaces(data, 'results')
-  const allResults = algs.groupByKey(results, 'season')
-  return allResults
+  return results
 }
 
 const getSeasonDriverResults = async (season, driver) => {
@@ -87,8 +86,7 @@ const getAllDriverQualify = async (driver) => {
   const response = await axios.get(`${API_URL}/drivers/${driver}/qualifying.json?limit=2000`)
   const data = await response.data.MRData.RaceTable.Races.QualifyingResults
   const qualify = raceService.mapRaces(data, 'qualify')
-  const allQualify = algs.groupByKey(qualify, 'season')
-  return allQualify
+  return qualify
 }
 
 const getSeasonDriverQualify = async (season, driver) => {

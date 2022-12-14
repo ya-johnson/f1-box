@@ -41,8 +41,7 @@ const getAllConstructorResults = async (constructor) => {
   const response = await axios.get(`${API_URL}/constructors/${constructor}/results.json?limit=2000`)
   const data = await response.data.MRData.RaceTable.Races
   const results = raceService.mapRaces(data, 'results')
-  const allResults = algs.groupByKey(results, 'season')
-  return allResults
+  return results
 }
 
 const getSeasonConstructorResults = async (season, constructor) => {
@@ -63,8 +62,7 @@ const getAllConstructorQualify = async (constructor) => {
   const response = await axios.get(`${API_URL}/constructors/${constructor}/qualifying.json?limit=2000`)
   const data = await response.data.MRData.RaceTable.Races.QualifyingResults
   const qualify = raceService.mapRaces(data, 'qualify')
-  const allQualify = algs.groupByKey(qualify, 'season')
-  return allQualify
+  return qualify
 }
 
 const getSeasonConstructorQualify = async (season, constructor) => {
