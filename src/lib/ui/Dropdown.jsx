@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IoMdArrowDropdown, IoMdCloseCircleOutline } from 'react-icons/io'
 
 
@@ -11,9 +11,8 @@ const Dropdown = ({ type,
                     loading }) => {
 
   const setInitialState = () => {
-    if (type === 'multi' && defaultItem) return [defaultItem]
+    if (defaultItem) return defaultItem
     else if (type === 'multi' && !defaultItem) return []
-    else if (type === 'select' && defaultItem) return defaultItem
     else if (type === 'select' && !defaultItem) return null
   }
 
@@ -40,6 +39,11 @@ const Dropdown = ({ type,
     setSelected(selected.filter(listItem => listItem !== item))
     toggleDropdown()
   }
+
+
+  useEffect(() => {
+    if (defaultItem) setItem(selected)
+  }, [defaultItem])
 
 
   return (
