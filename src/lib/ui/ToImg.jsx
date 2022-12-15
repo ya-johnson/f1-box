@@ -17,7 +17,7 @@ const ToImg = ({ children, className }) => {
   }
 
   return (
-    <div className={`${className} relative bg-neutral-100 dark:bg-neutral-800`}
+    <div className={`${className} relative w-full h-full bg-neutral-100 dark:bg-neutral-800`}
          ref={ref} 
          onMouseOver={() => setIcon('block')} 
          onMouseLeave={() => setIcon('hidden')}>
