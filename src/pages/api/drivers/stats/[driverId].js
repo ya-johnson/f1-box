@@ -10,7 +10,7 @@ const calcStats = (resultsData) => {
   return {
     races: results.length,
     wins: results.filter(result => result.position == 1),
-    podiums: results.filter(result => result.position >= 3),
+    podiums: results.filter(result => result.position <= 3),
     poles,
     poleWins: { count: poleWins.length, ratio: poles.length / poleWins.length }
   }
