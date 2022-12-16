@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const getConstructorInfo = async (constructorId) => {
   const response = await axios.get(`${API_URL}/constructors/${constructorId}.json`)
-  const constructor = await response.data
+  const constructor = await response.data.MRData.ConstructorTable.Constructors[0]
   return constructor
 }
 
