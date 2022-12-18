@@ -2,23 +2,20 @@
 
 ### Description
 
-F1 box is a hub and a platform for analysing Formula 1 data.
-It goes back from the first F1 race in 1950 up to the most current one.
-Features an in depth Race, Drivers, Constructors analytics and information,
-as well as News and Press gathered from popular publishers.
+F1 box is a platform for Formula 1 data. <br/>
+Features Post Race, Drivers, Constructors analytics and information. <br/>
+As well as News and Press gathered from popular publishers.
 
 ### Build With
 
-Next-Js, Supabase, Zustand, Tailwind.
-Powered by [Ergast F1 API.](https://ergast.com/mrd/)
+- [Next-Js (v12)](https://nextjs.org/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Tailwind](https://tailwindcss.com/)
+- [Cheerio](https://cheerio.js.org/)
+- Powered by [Ergast F1 API.](https://ergast.com/mrd/)
+
 
 ## Getting started
-
-#### Note: project yet to be finished, this is for future use.
-
-To set the exect project you'll need to setup [Supabase](https://supabase.com) with database image of [Ergast F1 API](https://ergast.com/mrd/),
-I downloaded CSV image and uploaded in manually via supabase UI (to minimise the load on the API server).
-However, the project setup so it can run only on Ergast F1 API.
 
 ### Prerequisites
 
@@ -44,15 +41,11 @@ NodeJs
    ```sh
    $ npm i
    ```
-3. Create .env.local file
+3. Run
    ```sh
-   $ touch .env
-   ```
-4. Set env variables
-   ```
-  NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
-  NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
-  NEXT_PUBLIC_API_URL=http://ergast.com/api/f1
+   $ npm run dev
    ```
 
 
+## ToDo
+- [] Set Data limits -  Ergast F1 API data availability.
