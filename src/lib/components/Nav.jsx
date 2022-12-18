@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useGlobalStore, useThemeStore } from '../../store'
-import { BsSun, BsMoon } from 'react-icons/bs'
+import { BsSun, BsMoon, BsGithub } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import Flag from 'react-world-flags'
 
@@ -72,7 +72,7 @@ const Nav = () => {
   return (
       
     <nav className="sticky top-0 left-0 w-screen flex justify-center h-16 z-30
-                  bg-neutral-200 dark:bg-neutral-900 brd border-b">
+                    bg-white dark:bg-neutral-900 brd border-b">
       <div className="w-full px-4 max-w-[2200px] flex items-center justify-between">
         
         <div className="flex items-center space-x-12 lg:space-x-0">
@@ -87,12 +87,13 @@ const Nav = () => {
             <Link href='/PostRace'><a className={styleLink('/PostRace')}>Post Race</a></Link>
             <Link href='/Drivers'><a className={styleLink('/Drivers')}>Drivers</a></Link>
             <Link href='/Constructors'><a className={styleLink('/Constructors')}>Constructors</a></Link>
-            {/* <Link href='/RaceSim'><a className={styleLink('/RaceSim')}>Race Sim</a></Link> */}
-            <Link href='/About'><a className={styleLink('/About')}>About</a></Link>
           </div>
         </div>
 
         <div className="flex items-center space-x-4">
+          <Link href="https://github.com/ya-johnson/f1-box">
+            <a target="_blank"><BsGithub className="icon" /></a>
+          </Link>
           { theme === 'dark' ? 
               <BsSun className="icon"
                       onClick={toggleTheme} />
