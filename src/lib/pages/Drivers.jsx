@@ -61,7 +61,7 @@ const Drivers = () => {
     <main>
       <div className="container">
         <h1>Drivers</h1>
-        <p>Select up to 6 Drivers to see stats and preform comparition.</p>
+        <p>Select Drivers to see stats and preform comparition.</p>
         {!allDrivers ? <Loader />  
                      : <Dropdown type='multi'
                                  className='min-w-[200px] max-w-[800px] mt-4'
@@ -72,28 +72,17 @@ const Drivers = () => {
       </div>
       <section className="container">
       {selected?.length && !driversData ? <Loader /> :
-        <div className="flex space-x-20">
+        <div className="flex flex-wrap items-center justify-center">
         {driversData?.map(driver => {
           return (
-            <div className="relative bg-white dark:bg-neutral-900">
+            <div className="relative bg-white dark:bg-neutral-900 mb-10 mr-10">
               <img src={driver.image} className="h-[350px] w-[300px] object-cover" />
               <div className="p-4 mb-8">
                 <p className="text-2xl font-semibold font-Russo-one">{driver.driver}</p>
                 <p>Nationality: {driver.nationality}</p>
                 <p>Born: {driver.birth}</p>
-                <div className="flex space-x-2">
-                  <p>Seasons:</p>
-                  <div className="flex flex-wrap space-x-1 max-w-[180px]">
-                  {driver.seasons?.map(season => <p>{`${season}, `}</p>)}
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <p>Championships: ({driver.championships.length})</p>
-                  {driver.championships.length > 0 &&
-                  <div className="flex flex-wrap space-x-1 max-w-[120px]">
-                  {driver.championships?.map(season => <p>{`${season}, `}</p>)}
-                  </div>}
-                </div>
+                <p>Seasons: {driver.seasons.length}</p>
+                <p>Championships: {driver.championships.length}</p>
                 <div className="flex space-x-2">
                   <p>First Race:</p>
                   <div className="flex flex-wrap space-x-1 max-w-[180px]">
@@ -118,7 +107,7 @@ const Drivers = () => {
         </div> 
       }
 
-      {(allDrivers && !selected?.length) && 
+      {/* {(allDrivers && !selected?.length) && 
         <div>
         {allDrivers?.drivers.map(driver => {
            return (
@@ -126,14 +115,14 @@ const Drivers = () => {
            )
          })}
          </div>
-      }
+      } */}
       </section>
 
-      {stats &&
-      <section className="container flex space-x-8">
-        <div className="w-1/2 h-[800px] py-20">
+      {(driversData && stats) &&
+      <section className="container flex space-x-8 lg:flex-col lg:space-x-0 lg:space-y-8">
+        <div className="w-1/2 h-[800px] py-20 lg:w-full">
           <ToImg>
-            <p className="text-2xl font-semibold my-4">Seasons / Championships</p>
+            <p className="text-2xl font-semibold my-4">Seasons/Championships</p>
             <ResponsiveContainer>
               <BarChart data={stats.seasons} barCategoryGap={'15%'}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -147,7 +136,7 @@ const Drivers = () => {
             </ResponsiveContainer>
           </ToImg>
         </div>
-        <div className="w-1/2 h-[800px] py-20">
+        <div className="w-1/2 h-[800px] py-20 lg:w-full">
           <ToImg>
             <p className="text-2xl font-semibold my-4">Races/Wins/Podiums/Poles</p>
             <ResponsiveContainer>
