@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { RoundControls } from '../components'
-import { Loader, Table } from '../ui'
+import { Loader, Table, ToImg } from '../ui'
 import { colors } from '../../utils'
 import { LineChart, Line, BarChart, Bar, 
          XAxis, YAxis, CartesianGrid, Tooltip,
@@ -10,6 +10,7 @@ import axios from 'axios'
 
 // fix sprint
 // fix ticks margin - standings
+// add charts - position gain/lost, pits
 
 const PostRace = () => {
 
@@ -18,35 +19,47 @@ const PostRace = () => {
   const { data: raceData } = useSwr(race ? `api/races/${race.season}-${race.round}` : null, fetcher)
   const { data: standings } = useSwr(race ? `api/standings/${race.season}-${race.round}` : null, fetcher)  
 
-
   return (
     <main>
       <section className="container">
-        { raceData && <h1>{`Season: ${race.season} Round: ${race.round}`}</h1>}
+        { race && 
+        <div className="mb-4">
+          <h1>{`Season: ${race.season} Round: ${race.round}`}</h1>
+          <div className="flex space-x-6">
+            <p>Country: {race.info.country}</p>
+            <p>City: {race.info.city}</p>
+            <p>Circuit: {race.info.circuit}</p>
+            <p>Date: {race.info.date}</p>
+            <p>Local Time: {race.info.time}</p>
+          </div>
+        </div>
+        }
         <RoundControls setRace={setRace} />
         { !raceData ? <Loader /> :
           <>
-            <div className="flex space-x-20">
-              <div>
+            <div className="flex space-x-20 xl:flex-col xl:space-x-0">
+              <ToImg>
                 <p className="font-semibold text-4xl mb-2">Results</p>
                 <Table cols={Object.keys(raceData.results.table[0])}
-                       rows={raceData.results.table} />
-              </div>
-              <div>
+                       rows={raceData.results.table}
+                       width='w-full' />
+              </ToImg>
+              <ToImg>
                 <p className="font-semibold text-4xl mb-2">Qualifying</p>
                 <Table cols={Object.keys(raceData.qualify.table[0])}
-                       rows={raceData.qualify.table} />
-              </div>
+                       rows={raceData.qualify.table} 
+                       width='w-full' />
+              </ToImg>
             </div>
             <div className="w-full">
               <p className="font-semibold text-4xl mb-2">Standings</p>
-              <div className="mb-10">
+              <ToImg className="mb-10">
                 <p className="font-semibold text-3xl mb-2">Drivers</p>
-                <div className="flex">
+                <div className="flex xl:flex-col xl:space-x-0 xl:space-y-10">
                   <Table cols={Object.keys(standings.drivers.standings[0])} 
                          rows={standings.drivers.standings} 
-                         width={'min-w-[600px]'}/>
-                  <div className="w-full flex justify-center">
+                         width='w-full' />
+                  <div className="flex justify-center w-1/2 xl:w-full">
                     <ResponsiveContainer>
                       <BarChart data={standings.drivers.chart} barCategoryGap={'15%'}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -59,16 +72,16 @@ const PostRace = () => {
                     </ResponsiveContainer>
                   </div>
                 </div>
-              </div>
+              </ToImg>
 
-              <div className="mb-10">
-              <p className="font-semibold text-3xl mb-2">Constructors</p>
-                <div className="flex">
+              <ToImg className="mb-10">
+                <p className="font-semibold text-3xl mb-2">Constructors</p>
+                <div className="flex xl:flex-col xl:space-x-0 xl:space-y-10">
                   <Table cols={Object.keys(standings.constructors.standings[0])} 
                          rows={standings.constructors.standings} 
                          width={'min-w-[400px]'}/>
                   <div className="w-full flex justify-center">
-                    <div className="w-2/5">
+                    <div className="w-2/5 xl:w-full">
                       <ResponsiveContainer>
                         <BarChart data={standings.constructors.chart} barCategoryGap={'15%'}>
                           <CartesianGrid strokeDasharray="3 3" />
@@ -82,9 +95,10 @@ const PostRace = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </ToImg>
             </div>
-            <div className="w-full my-14">
+
+            <ToImg className="w-full my-20">
               <p className="font-semibold text-3xl">Position per Lap</p>
               <p className="mb-8">Each driver position on every Lap of the Race</p>
               <ResponsiveContainer height={800}>
@@ -103,8 +117,8 @@ const PostRace = () => {
                   })}
                 </LineChart>
               </ResponsiveContainer>
-            </div>
-            <div className="w-full my-14">
+            </ToImg>
+            <ToImg className="w-full my-20">
               <p className="font-semibold text-3xl">Lap Times</p>
               <p className="mb-8">Lap times getting faster as fuel tank empties.</p>
               <ResponsiveContainer height={800}>
@@ -123,7 +137,7 @@ const PostRace = () => {
                   })}
                 </LineChart>
               </ResponsiveContainer>
-            </div>
+            </ToImg>
           </>
         }
       </section>
