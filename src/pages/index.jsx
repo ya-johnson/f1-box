@@ -44,11 +44,12 @@ const Home = ({ season,
               }) => {
 
   return (
-    <main className="my-10">
-      <section className="container flex items-center justify-between space-x-6 h-[90vh] pb-20">
-        <div className="w-1/2">
+    <main className="lg:mt-0 lg:mb-20">
+      <section className="container flex items-center justify-between space-x-6 h-[90vh] pb-20 
+                          lg:flex-col-reverse lg:justify-end lg:space-x-0 lg:px-0">
+        <div className="w-1/2 lg:w-full lg:flex lg:flex-col lg:items-center lg:justify-center lg:px-4 lg:text-center">
           <div className="flex items-center space-x-2">
-            <p className="mute-text text-xl">
+            <p className="mute-text text-xl lg:text-base">
             {`Last Race: Round ${lastRace.round} - ${lastRace.name}`}
             </p> 
             <Flag code={lastRace.country.slice(0,3)} className="h-5"/>
@@ -57,7 +58,7 @@ const Home = ({ season,
           <h1>{report.title}</h1>
           <Table cols={Object.keys(podium[0])} rows={podium} />
 
-          <div className="flex space-x-6">
+          <div className="flex space-x-6 md:space-x-4">
             <Link href={'/Races'}>
               <a className="btn amber-btn sdw">Results and Analytics</a>
             </Link>
@@ -68,8 +69,8 @@ const Home = ({ season,
         </div>
 
         <Link href={report.url} >
-          <a className="hover:-translate-y-2 sdw" target="_blank">
-            <img src={report.image} className="w-[60vw]"/>
+          <a className="hover:-translate-y-2 sdw lg:w-screen lg:mb-8" target="_blank">
+            <img src={report.image} className="w-[60vw] lg:w-full lg:max-h-[45vh]"/>
           </a>
         </Link>
       </section>  
@@ -82,8 +83,8 @@ const Home = ({ season,
               Easy to use, all graphics are free to Download (no copyrights restrictions).
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-20">
-            <div className="max-w-[340px] h-44">
+          <div className="flex items-center justify-center space-x-20 md:flex-col md:space-x-0 md:space-y-6 md:mb-8">
+            <div className="max-w-[340px]">
               <div className="flex items-center space-x-4 pb-4 text-amber-400">
                 <BsGraphUp className="h-6 w-6"/>
                 <Link href='/PostRace'><a className="text-xl font-medium">Post Race</a></Link>
@@ -94,7 +95,7 @@ const Home = ({ season,
               </p>
             </div>
 
-            <div className="max-w-[340px] h-44">
+            <div className="max-w-[340px]">
               <div className="flex items-center space-x-4 pb-4 text-amber-400">
                 <GiFullMotorcycleHelmet className="h-6 w-6"/>
                 <Link href='/Drivers'><a className="text-xl font-medium">Drivers</a></Link>
@@ -104,7 +105,7 @@ const Home = ({ season,
                 What makes One strong and who is likely to.
               </p>
             </div>
-            <div className="max-w-[340px] h-44">
+            <div className="max-w-[340px]">
               <div className="flex items-center space-x-4 pb-4 text-amber-400">
                 <MdGroups className="h-6 w-6"/>
                 <Link href='/Constructors'><a className="text-xl font-medium">Constructors</a></Link>
@@ -117,20 +118,30 @@ const Home = ({ season,
           </div>
         </div>
 
-        <Swiper slidesPerView={6}
+        <p className="text-2xl font-semibold mb-4 text-center">Season {lastRace.season} schedule</p>
+        <Swiper slidesPerView={5}
                 spaceBetween={40}
                 initialSlide={lastRace.round}
                 pagination={{clickable: true}}
-                modules={[Pagination]}>
+                modules={[Pagination]}
+                breakpoints={{
+                  100: {slidesPerView: 1, slidesPerGroup: 1},
+                  400: {slidesPerView: 2, slidesPerGroup: 2},
+                  767: {slidesPerView: 3, slidesPerGroup: 3},
+                  1023: {slidesPerView: 4, slidesPerGroup: 4},
+                }}>
           {season.schedule.map(race => {
             return (
             <SwiperSlide>
-              <div className={`h-36 p-4 brd border rounded-xl bg-neutral-200 dark:bg-neutral-900
+              <div className={`p-4 brd border bg-white dark:bg-neutral-900
                               ${race.round === lastRace.round &&
                               'bg-amber-400 dark:bg-amber-400 text-neutral-900'}`}>
                 <p className="text-lg font-medium">{race.name}</p>
-                <p>{`Round: ${race.round}`}</p>
-                <p>{race.country}</p>
+                <p>Round: {race.round}</p>
+                <p>Country: {race.country}</p>
+                <p>Circuit: {race.circuit}</p>
+                <p>Date: {race.date}</p>
+                <p>Time: {race.time}</p>
               </div>
             </SwiperSlide>
             )
@@ -150,17 +161,23 @@ const Home = ({ season,
                       slidesPerView={4}
                       slidesPerGroup={4}
                       pagination={{clickable: true}}
-                      modules={[Pagination]}>
+                      modules={[Pagination]}
+                      breakpoints={{
+                        100: {slidesPerView: 1, slidesPerGroup: 1},
+                        550: {slidesPerView: 2, slidesPerGroup: 2},
+                        991: {slidesPerView: 3, slidesPerGroup: 3},
+                        1140: {slidesPerView: 4, slidesPerGroup: 4},
+                      }}>
                 {source.articles.map(article => {
                   return (
                     <SwiperSlide>
                       <Link href={article.url} >
-                        <a className="w-[calc(100%/4)] hover:-translate-y-1" target="_blank">
-                          <div className="text-left rounded-xl sdw">
+                        <a className="hover:-translate-y-1" target="_blank">
+                          <div className="text-left sdw">
                             <div className="p-0">
-                              <img src={article.image} className="w-full h-60 rounded-t-xl"/>
+                              <img src={article.image} className="w-full h-60"/>
                             </div>
-                            <div className="h-40 p-4 bg-neutral-200 dark:bg-neutral-900 rounded-b-xl">
+                            <div className="h-40 md:h-48 p-4 bg-white dark:bg-neutral-900">
                               <span>{article.type}</span>
                               <p className="text-xl font-medium">{article.header}</p>
                             </div>
