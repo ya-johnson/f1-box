@@ -76,8 +76,8 @@ const getRoundConstructorResults = async (season, round, constructorId) => {
 
 const getAllConstructorPoles = async (constructorId) => {
   const response = await axios.get(`${API_URL}/constructors/${constructorId}/qualifying/1.json?limit=1000`)
-  const poleCount = await response.data.MRData.total
-  return parseInt(poleCount)
+  const poles = await response.data.MRData.RaceTable.Races
+  return poles
 }
 
 const getAllConstructorQualify = async (constructorId) => {
