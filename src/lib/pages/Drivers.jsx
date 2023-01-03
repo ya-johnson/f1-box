@@ -1,79 +1,32 @@
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Loader, Dropdown, ToImg } from '../ui'
+import { useStats } from '../../hooks'
 import { colors } from '../../utils'
-import { BarChart, Bar, 
-         XAxis, YAxis, CartesianGrid, Tooltip,
-         Legend, ResponsiveContainer } from 'recharts'
-import useSwr from 'swr'
-import axios from 'axios'
+import { Loader, Dropdown, ToImg } from '../ui'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, 
+         Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 
 const Drivers = () => {
 
-  const [selected, setSelected] = useState()
-  const [urls, setUrls] = useState()
-  const [stats, setStats] = useState()
-
-  const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = arr => Promise.all(arr.map(url => axios.get(url).then(res => res.data)))
-  const { data: driversData, error: driversDataError } = useSwr(urls, multiFetcher)
-  const { data: allDrivers, error: allDriversError } = useSwr('api/drivers/all', fetcher)
-
-  const createUrls = () => {
-    const drivers = selected.map(selDriver => allDrivers.drivers.filter(driver => driver.driver === selDriver)[0])
-    const urls = drivers.map(driver => `api/drivers/stats/${driver.driverId}`)
-    setUrls([urls])
-  }
-
-  const createStats = () => {
-    const seasons = driversData.map(driver => {
-      return {
-        name: driver.driver,
-        seasons: driver.seasons.length, 
-        championships: driver.championships.length 
-      }
-    })
-    const races = driversData.map(driver => {
-      return {
-        name: driver.driver,
-        races: driver.stats.races, 
-        wins: driver.stats.wins.length, 
-        podiums: driver.stats.podiums.length,
-        poles: driver.stats.poles.length
-      }
-    })
-
-    setStats({ seasons, races })
-  }
-
-
-  useEffect(() => {
-    if (selected) createUrls()
-  }, [selected])
-
-  useEffect(() => {
-    if (driversData) createStats()
-  }, [driversData])
-
+  const { all, selected, setSelected, statsData, stats } = useStats('drivers')
 
   return (
     <main>
       <div className="container">
         <h1>Drivers</h1>
         <p>Select Drivers to see stats and preform comparition.</p>
-        {!allDrivers ? <Loader />  
-                     : <Dropdown type='multi'
-                                 className='min-w-[200px] max-w-[800px] mt-4'
-                                 title='Drivers:'
-                                 list={allDrivers?.names}
-                                 setItem={setSelected} 
-                                 defaultItem={['Max Verstappen', 'Charles Leclerc']}/>}
+        {!all ? <Loader />  
+              : <Dropdown type='multi'
+                          className='min-w-[200px] max-w-[800px] mt-4'
+                          title='Drivers:'
+                          list={all?.names}
+                          setItem={setSelected} 
+                          defaultItem={['Max Verstappen', 'Charles Leclerc']}/>}
       </div>
       <section className="container">
-      {selected?.length && !driversData ? <Loader /> :
+      {selected?.length && !statsData ? <Loader /> :
         <div className="flex flex-wrap items-center justify-center">
-        {driversData?.map(driver => {
+        {statsData?.map(driver => {
           return (
             <div className="relative bg-white dark:bg-neutral-900 mb-10 mr-10">
               <img src={driver.image} className="h-[350px] w-[300px] object-cover" />
@@ -118,7 +71,7 @@ const Drivers = () => {
       } */}
       </section>
 
-      {(driversData && stats) &&
+      {(statsData && stats) &&
       <section className="container flex space-x-8 lg:flex-col lg:space-x-0 lg:space-y-8">
         <div className="w-1/2 h-[800px] py-20 lg:w-full">
           <ToImg>

@@ -1,99 +1,41 @@
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Loader, Dropdown, ToImg } from '../ui'
+import { useStats } from '../../hooks'
 import { colors } from '../../utils'
-import { BarChart, Bar, 
-         XAxis, YAxis, CartesianGrid, Tooltip,
-         Legend, ResponsiveContainer } from 'recharts'
-import useSwr from 'swr'
-import axios from 'axios'
+import { Loader, Dropdown, ToImg } from '../ui'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, 
+         Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 
 const Constructors = () => {
 
-  const [selected, setSelected] = useState()
-  const [urls, setUrls] = useState()
-  const [stats, setStats] = useState()
-
-  const fetcher = url => axios.get(url).then(res => res.data)
-  const multiFetcher = arr => Promise.all(arr.map(url => axios.get(url).then(res => res.data)))
-  const { data: constructorsData, error: constructorsDataError } = useSwr(urls, multiFetcher)
-  const { data: allConstructors, error: allConstructorsError } = useSwr('api/constructors/all', fetcher)
-
-  const createUrls = () => {
-    const constructors = selected.map(selCon => allConstructors.constructors.filter(con => con.constructor === selCon)[0])
-    const urls = constructors.map(constructor => `api/constructors/stats/${constructor.constructorId}`)
-    console.log(urls)
-    setUrls([urls])
-  }
-
-  const createStats = () => {
-    const seasons = constructorsData.map(constructor => {
-      return {
-        name: constructor.name,
-        seasons: constructor.seasons.length,
-        championships: constructor.championships.length
-      }
-    })
-
-    const races = constructorsData.map(constructor => {
-      return { 
-        name: constructor.name,
-        races: constructor.races,
-        wins: constructor.wins,
-        podiums: constructor.podiums,
-        poles: constructor.poles
-      }
-    })
-
-    setStats({ seasons, races })
-  }
-
-
-  useEffect(() => {
-    if (selected) createUrls()
-  }, [selected])
-
-  useEffect(() => {
-    if (constructorsData) createStats()
-  }, [constructorsData])
-
+  const { all, selected, setSelected, statsData, stats } = useStats('constructors')
   
   return (
     <main>
       <div className="container">
         <h1>Constructors</h1>
-        {!allConstructors ? <Loader />  
-                          : <Dropdown type='multi'
-                                      className='min-w-[200px] max-w-[800px] mt-4'
-                                      title='Constructors:'
-                                      list={allConstructors?.names}
-                                      setItem={setSelected} 
-                                      defaultItem={['Red Bull', 'Ferrari', 'Mercedes']}/>}
+        {!all ? <Loader />  
+              : <Dropdown type='multi'
+                          className='min-w-[200px] max-w-[800px] mt-4'
+                          title='Constructors:'
+                          list={all?.names}
+                          setItem={setSelected} 
+                          defaultItem={['Red Bull', 'Ferrari', 'Mercedes']}/>}
       </div>
       <section className="container">
-      {selected?.length && !constructorsData ? <Loader /> :
-        <div className="flex space-x-20">
-        {constructorsData?.map(constructor => {
+      {selected?.length && !statsData ? <Loader /> :
+        <div className="flex flex-wrap items-center justify-center">
+        {statsData?.map(constructor => {
           return (
-            <div className="relative bg-white dark:bg-neutral-900">
-              <img src={constructor.image} className="object-contain" />
+            <div className="min-h-[450px] relative bg-white dark:bg-neutral-900 mb-10 mr-10">
+              <div className="w-full flex justify-center py-4">
+                <img src={constructor.image} className="object-contain" />
+              </div>
               <div className="p-4 mb-8">
                 <p className="text-2xl font-semibold font-Russo-one">{constructor.name}</p>
                 <p>Nationality: {constructor.nationality}</p>
-                <div className="flex space-x-2">
-                  <p>Seasons:</p>
-                  <div className="flex flex-wrap space-x-1 max-w-[180px]">
-                  {constructor.seasons?.map(season => <p>{`${season}, `}</p>)}
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <p>Championships: ({constructor.championships.length})</p>
-                  {constructor.championships.length > 0 &&
-                  <div className="flex flex-wrap space-x-1 max-w-[120px]">
-                  {constructor.championships?.map(season => <p>{`${season}, `}</p>)}
-                  </div>}
-                </div>
+                <p>Seasons: {constructor.seasons.length}</p>
+                <p>Championships: {constructor.championships.length}</p>
                 <div className="flex space-x-2">
                   <p>First Race:</p>
                   <div className="flex flex-wrap space-x-1 max-w-[180px]">
@@ -101,10 +43,10 @@ const Constructors = () => {
                     <p>{constructor.results[0].date}</p>
                   </div>
                 </div>
-                <p>Races: {constructor.races}</p>
-                <p>Wins: {constructor.wins}</p>
-                <p>Poles: {constructor.poles}</p>
-                <p>Podiums: {constructor.podiums}</p>
+                <p>Races: {constructor.stats.races}</p>
+                <p>Wins: {constructor.stats.wins.length}</p>
+                <p>Poles: {constructor.stats.poles.length}</p>
+                <p>Podiums: {constructor.stats.podiums.length}</p>
               </div>
               <Link href={constructor.url}>
                 <a target="_blank" 
@@ -119,9 +61,9 @@ const Constructors = () => {
       }
       </section>
 
-      {(constructorsData && stats) &&
-      <section className="container flex space-x-8">
-        <div className="w-1/2 h-[800px] py-20">
+      {(statsData && stats) &&
+      <section className="container flex space-x-8 lg:flex-col lg:space-x-0 lg:space-y-8">
+        <div className="w-1/2 h-[800px] py-20 lg:w-full">
           <ToImg>
             <p className="text-2xl font-semibold my-4">Seasons/Championships</p>
             <ResponsiveContainer>
@@ -137,7 +79,7 @@ const Constructors = () => {
             </ResponsiveContainer>
           </ToImg>
         </div>
-        <div className="w-1/2 h-[800px] py-20">
+        <div className="w-1/2 h-[800px] py-20 lg:w-full">
           <ToImg>
             <p className="text-2xl font-semibold my-4">Races/Wins/Podiums/Poles</p>
             <ResponsiveContainer>
