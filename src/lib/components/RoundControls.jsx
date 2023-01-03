@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useGlobalStore } from '../../store'
+import { raceService, seasonService } from '../../services'
 import { Dropdown } from '../ui'
 
 
@@ -8,20 +9,19 @@ const RoundControls = ({ setRace }) => {
   const lastRace = useGlobalStore(state => state.lastRace)
   const seasons = useGlobalStore(state => state.seasons)
   const schedules = useGlobalStore(state => state.schedules)
-  const getSeasonSchedule = useGlobalStore(state => state.getSeasonSchedule)
   const [season, setSeason] = useState(lastRace.season)
   const [round, setRound] = useState(lastRace.round)
   const [seasonSchedule, setSeasonSchedule] = useState()
 
   const mapRounds = () => {
     if (season == lastRace.season) {
-      const schedule = getSeasonSchedule(schedules, season)
+      const schedule = seasonService.getLoadedSeasonSchedule(schedules, season)
       const upToLastRace = schedule.filter(race => race.round <= parseInt(lastRace.round))
       const rounds = upToLastRace.map(race => `${race.round}-${race.name}`)
       setSeasonSchedule(rounds)
       setRound(rounds[parseInt(lastRace.round) - 1])
     } else {
-      const schedule = getSeasonSchedule(schedules, season)
+      const schedule = seasonService.getLoadedSeasonSchedule(schedules, season)
       const rounds = schedule.map(race => `${race.round}-${race.name}`)
       setSeasonSchedule(rounds)
       setRound(rounds[0])
@@ -35,7 +35,7 @@ const RoundControls = ({ setRace }) => {
 
   useEffect(() => {
     const roundNumber = round.split('-')[0]
-    setRace({ season, round: roundNumber })
+    setRace({ season, round: roundNumber, info: raceService.getLoadedRaceInfot(schedules, season, roundNumber) })
   }, [round])
 
 
