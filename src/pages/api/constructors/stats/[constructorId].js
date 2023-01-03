@@ -18,10 +18,13 @@ const handler = async (req, res) => {
     races,
     seasons,
     championships,
-    wins: podiums[0].length,
-    podiums: podiums[0].length + podiums[1].length + podiums[2].length,
-    poles,
-    results
+    results,
+    stats: {
+      races,
+      wins: podiums[0],
+      podiums: podiums.flatMap(race => race),
+      poles,
+    }
   }
 
   res.status(200).json(data)
