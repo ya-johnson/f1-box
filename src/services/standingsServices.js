@@ -1,5 +1,5 @@
 import { API_URL } from '../config'
-import { colors } from '../utils'
+// import { colors } from '../utils'
 import axios from 'axios'
 
 
@@ -20,14 +20,14 @@ const getConstructorStandings = async (season, round) => {
 const mapDriverStandings = (data) => {
   const driverStandings = data.map(driver => {
     return {
+      position: driver.position,
       driver: `${driver.Driver.givenName} ${driver.Driver.familyName}`,
-      driverId: driver.Driver.driverId,
+      // driverId: driver.Driver.driverId,
       constructor: driver.Constructors[0].name,
-      constructorId: driver.Constructors[0].constructorId,
+      // constructorId: driver.Constructors[0].constructorId,
       // color: colors.getConstructorColor(driver.Constructors[0].name),
       number: driver.Driver.permanentNumber,
       wins: driver.wins,
-      position: driver.position,
       points: driver.points,
     }
   })
@@ -38,10 +38,10 @@ const mapDriverStandings = (data) => {
 const mapConstructorStandings = (data) => {
   const constructorStandings = data.map(constructor => {
     return {
-      constructor: constructor.Constructor.name,
-      constructorId: constructor.Constructor.constructorId,
-      // color: colors.getConstructorColor(constructor.Constructor.name),
       position: constructor.position,
+      constructor: constructor.Constructor.name,
+      // constructorId: constructor.Constructor.constructorId,
+      // color: colors.getConstructorColor(constructor.Constructor.name),
       wins: constructor.wins,
       points: constructor.points,
     }
