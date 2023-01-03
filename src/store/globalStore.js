@@ -1,17 +1,5 @@
 import create from 'zustand'
 
-// seasons: { sesaon, schedule, grid, constructors }
-
-const getSeasonSchedule = (schedules, year) => {
-  const season = schedules.filter(season => season.season == year)
-  return season[0].schedule
-}
-
-const getRaceInfo = (schedules, year, round) => {
-  const season = schedules.filter(season => season.season == year)
-  const raceInfo = season[0].schedule.filter(race => race.round == round)
-  return raceInfo[0]
-}
 
 const useGlobalStore = create(set => ({
   lastRace: null,
@@ -21,9 +9,7 @@ const useGlobalStore = create(set => ({
   seasons: null,
   setSeasons: (list) => set(() => ({ seasons: list })),
   schedules: null,
-  setSchedules: (schedules) => set(() => ({ schedules: schedules })),
-  getSeasonSchedule,
-  getRaceInfo
+  setSchedules: (schedules) => set(() => ({ schedules: schedules }))
 }))
 
 
