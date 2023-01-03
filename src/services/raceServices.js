@@ -3,6 +3,16 @@ import { resultService, qualifyService } from '.'
 import axios from 'axios'
 
 
+const getLoadedRaceInfo = (schedules, year, round) => {
+  const season = schedules.filter(season => season.season == year)
+  const raceInfo = season[0].schedule.filter(race => race.round == round)
+  if (raceInfo.length < 1) {
+    return 'next season'
+  } else {
+    return raceInfo[0]
+  }  
+}
+
 const getLastRace = async () => {
   const response = await axios.get(`${API_URL}/current/last/results.json?limit=1`)
   const data = await response.data.MRData.RaceTable.Races[0]
@@ -60,6 +70,7 @@ const mapRaces = (races, type) => {
 
 
 export {
+  getLoadedRaceInfo,
   getLastRace,
   getRace,
   mapRaces
