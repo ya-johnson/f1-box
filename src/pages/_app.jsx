@@ -2,8 +2,6 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { useGlobalStore } from '../store'
 import { Footer } from '../lib/components'
-import { ToastContainer, Slide } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
 
 
@@ -23,11 +21,6 @@ const MyApp = ({ Component, pageProps }) => {
 
     { !nextRace ? <Intro /> :
       <>
-        <ToastContainer position='top-center'
-                        hideProgressBar={true}
-                        className='toast-container'
-                        toastClassName='toast-body' 
-                        transition={Slide} />
         <Nav />
         <Component {...pageProps} />
         <Footer />
