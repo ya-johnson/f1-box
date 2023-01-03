@@ -60,6 +60,11 @@ const mapSchedule = (season) => {
   return schedule
 }
 
+const getLoadedSeasonSchedule = (schedules, year) => {
+  const season = schedules.filter(season => season.season == year)
+  return season[0].schedule
+}
+
 const getSeasonsList = async () => {
   const response = await axios.get(`${API_URL}/seasons.json?limit=100`)
   const data = await response.data.MRData.SeasonTable.Seasons
@@ -68,7 +73,7 @@ const getSeasonsList = async () => {
   return seasons
 }
 
-const getSeasonSchdule = async (year) => {
+const getSeasonSchedule = async (year) => {
   const response = await axios.get(`${API_URL}/${!year ? 'current' : year}.json`)
   const data = await response.data.MRData.RaceTable
   const schedule = mapSchedule(data)
@@ -83,7 +88,8 @@ const getAllSeasonsSchedules = async () => {
 
 
 export {
+  getLoadedSeasonSchedule,
   getSeasonsList,
-  getSeasonSchdule,
-  getAllSeasonsSchedules
+  getSeasonSchedule,
+  getAllSeasonsSchedules,
 }
