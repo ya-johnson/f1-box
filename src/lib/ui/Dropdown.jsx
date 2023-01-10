@@ -45,6 +45,10 @@ const Dropdown = ({ type,
     if (defaultItem) setItem(selected)
   }, [defaultItem])
 
+  useEffect(() => {
+    setSelected(setInitialState())
+  }, [list])
+  
 
   return (
     <div className="flex">

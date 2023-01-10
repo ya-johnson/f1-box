@@ -23,8 +23,9 @@ const RoundControls = ({ setRace }) => {
     } else {
       const schedule = seasonService.getLoadedSeasonSchedule(schedules, season)
       const rounds = schedule.map(race => `${race.round}-${race.name}`)
-      setSeasonSchedule(rounds)
       setRound(rounds[0])
+      setSeasonSchedule(rounds)
+
     }
   }
 
@@ -35,7 +36,7 @@ const RoundControls = ({ setRace }) => {
 
   useEffect(() => {
     const roundNumber = round.split('-')[0]
-    setRace({ season, round: roundNumber, info: raceService.getLoadedRaceInfot(schedules, season, roundNumber) })
+    setRace({ season, round: roundNumber, info: raceService.getLoadedRaceInfo(schedules, season, roundNumber) })
   }, [round])
 
 
@@ -44,15 +45,15 @@ const RoundControls = ({ setRace }) => {
 
       <Dropdown type='select'
                 title='Season:'
-                list={seasons}
+                list={seasons.filter(season => season <= lastRace.season)}
                 defaultItem={season}
                 setItem={setSeason} />
 
       {seasonSchedule && <Dropdown type='select'
-                title='Round:'
-                list={seasonSchedule}
-                defaultItem={round}
-                setItem={setRound} />}
+                                   title='Round:'
+                                   list={seasonSchedule}
+                                   defaultItem={round}
+                                   setItem={setRound} />}
 
     </div>
   )
