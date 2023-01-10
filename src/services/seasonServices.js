@@ -82,7 +82,7 @@ const getSeasonSchedule = async (year) => {
 
 const getAllSeasonsSchedules = async () => {
   const seasons = await getSeasonsList()
-  const schedules = await Promise.all(seasons.map(async season => await getSeasonSchdule(season)))
+  const schedules = await Promise.all(seasons.map(async season => await getSeasonSchedule(season)))
   return schedules
 }
 

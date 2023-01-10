@@ -12,7 +12,7 @@ import 'swiper/css/pagination'
 
 
 export const getServerSideProps = async () => {
-  const season = await seasonService.getSeasonSchdule()
+  const season = await seasonService.getSeasonSchedule()
   const lastRace = await raceService.getLastRace()
   const results = await resultService.getResults(lastRace.season, lastRace.round)
   const podium = resultService.mapPodium(results)
@@ -59,7 +59,7 @@ const Home = ({ season,
           <Table cols={Object.keys(podium[0])} rows={podium} />
 
           <div className="flex space-x-6 md:space-x-4">
-            <Link href={'/Races'}>
+            <Link href={'/PostRace'}>
               <a className="btn amber-btn sdw">Results and Analytics</a>
             </Link>
             <Link href={report.reportLink}>
@@ -83,7 +83,7 @@ const Home = ({ season,
               Easy to use, all graphics are free to Download (no copyrights restrictions).
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-20 md:flex-col md:space-x-0 md:space-y-6 md:mb-8">
+          <div className="flex items-center justify-center space-x-20 mb-12 md:flex-col md:space-x-0 md:space-y-6">
             <div className="max-w-[340px]">
               <div className="flex items-center space-x-4 pb-4 text-amber-400">
                 <BsGraphUp className="h-6 w-6"/>
@@ -118,7 +118,6 @@ const Home = ({ season,
           </div>
         </div>
 
-        <p className="text-2xl font-semibold mb-4 text-center">Season {lastRace.season} schedule</p>
         <Swiper slidesPerView={5}
                 spaceBetween={40}
                 initialSlide={lastRace.round}
