@@ -19,7 +19,8 @@ export const getServerSideProps = async () => {
   const report = await newsService.getRaceReport(lastRace.season, lastRace.circuitId)
   const F1News = await newsService.getFormula1News()
   const skyF1News = await newsService.getSkyF1News()
-  
+  const motorsportF1News = await newsService.getMotorsportNews()
+
   return {
     props: {
       season,
@@ -29,7 +30,8 @@ export const getServerSideProps = async () => {
       report,
       news: [
         { title: 'Offical Formula 1', articles: F1News }, 
-        { title: 'Sky Sports F1', articles: skyF1News }
+        { title: 'Sky Sports F1', articles: skyF1News },
+        { title: 'Motorsport F1', articles: motorsportF1News }
       ]
     }
   }
@@ -154,7 +156,7 @@ const Home = ({ season,
         </div>
         {news.map(source => {
           return (
-            <div className="mb-14">
+            <div className="mb-6">
               <h3 className="mb-6">{source.title}</h3>
               <Swiper spaceBetween={40} 
                       slidesPerView={4}
@@ -190,10 +192,6 @@ const Home = ({ season,
             </div>
           )
         })}
-      </section>
-
-      <section className="container">
-        <h2>FAQ</h2>
       </section>
     </main>
   )

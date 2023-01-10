@@ -94,9 +94,27 @@ const getSkyF1News = async () => {
   return articlesData
 }
 
+const getMotorsportNews = async () => {
+  const response = await axios.get(`${MOTOR_SPORT_F1_URL}/news`)
+  const data = await response.data
+
+  const page = cheerio.load(data)
+  const articlesData = page('.ms-item--art, .ms-grid-hor-items-1-2-3-4-5').map((i, article) => {
+    return {
+      header: page(article).find('.ms-item_link--text').text(),
+      image: page(article).find('.ms-item_img--3_2').attr('src'),
+      url: page(article).find('a').attr('href')
+    }
+  }).get()
+  
+  const articles = articlesData.filter(article => article.image && article.url).slice(1,13)
+  return articles
+}
+
 
 export {
   getRaceReport,
   getFormula1News,
-  getSkyF1News
+  getSkyF1News,
+  getMotorsportNews
 }
