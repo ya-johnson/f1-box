@@ -5,7 +5,7 @@ import * as config from '../../config'
 const Footer = () => {
 
   return ( 
-    <footer className="bg-neutral-300 dark:bg-neutral-900 py-14 mt-10 brd border-t">
+    <footer className="bg-white dark:bg-neutral-900 py-14 mt-10 brd border-t">
       <div className="container flex justify-between space-x-8">
         <div className="flex flex-col">
           <Link href="/">
@@ -13,18 +13,15 @@ const Footer = () => {
           </Link>
           <div className="flex space-x-20">
             <div className="flex flex-col space-y-1">
-              <Link href='/Races'><a className='hover:text-amber-400'>Races</a></Link>
-              <Link href='/Standings'><a className='hover:text-amber-400'>Standings</a></Link>
+              <Link href='/PostRace'><a className='hover:text-amber-400'>Post Race</a></Link>
               <Link href='/Drivers'><a className='hover:text-amber-400'>Drivers</a></Link>
               <Link href='/Constructors'><a className='hover:text-amber-400'>Constructors</a></Link>
-              <Link href='/RaceSim'><a className='hover:text-amber-400'>Race Sim</a></Link>
-              <Link href='/About'><a className='hover:text-amber-400'>About</a></Link>
             </div>
             <div>
               <p>Although we strive to keep all data on this website correct and up to date, we do not state that it always is.</p>
               <p>The use of these data is at your own risk. By using this website you acknowledge that you are aware of this.</p>
               <p>A special thanks to Ergast for providing a comprehensive database of Formula 1 history data!</p>
-              <p>Formula 1 Statistics claims no rights to these data.</p>
+              <p>F1 box claims no rights to this data.</p>
               <p>All names, brands and otherwise copyrighted material are and remain property of their respective owners.</p>
               <p>This website is unofficial and is not associated in any way with the Formula 1 companies.</p>
               <p>F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks</p>
@@ -35,11 +32,11 @@ const Footer = () => {
 
         <div className="flex flex-col space-y-1">
           <Link href={config.API_URL}>
-            <a className="text-xl font-bold hover:text-amber-400">Ergast F1 API</a>
+            <a target='_blank' className="text-xl font-bold hover:text-amber-400">Ergast F1 API</a>
           </Link>
-          <Link href={config.FORMULA1_URL}><a className='hover:text-amber-400'>Formula1.com</a></Link>
-          <Link href={config.SKY_F1_URL}><a className='hover:text-amber-400'>Skysport.com/f1</a></Link>
-          <Link href={config.MOTOR_SPORT_F1_URL}><a className='hover:text-amber-400'>Motorsports.com/f1</a></Link>
+          <Link href={config.FORMULA1_URL}><a target='_blank' className='hover:text-amber-400'>Formula1.com</a></Link>
+          <Link href={config.SKY_F1_URL}><a target='_blank' className='hover:text-amber-400'>Skysport.com/f1</a></Link>
+          <Link href={config.MOTOR_SPORT_F1_URL}><a target='_blank' className='hover:text-amber-400'>Motorsport.com/f1</a></Link>
         </div>
       </div>
     </footer>
