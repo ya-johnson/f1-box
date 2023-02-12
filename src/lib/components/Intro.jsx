@@ -15,7 +15,7 @@ const Intro = () => {
     const seasons = await seasonService.getSeasonsList()
     const schedules = await seasonService.getAllSeasonsSchedules()
     const lastRace = await raceService.getLastRace()
-    const nextRace = getRaceInfo(schedules, lastRace.season, parseInt(lastRace.round) + 1)
+    const nextRace = raceService.getLoadedRaceInfo(schedules, lastRace.season, parseInt(lastRace.round) + 1)
 
     setSeasons(seasons)
     setLastRace(lastRace)
