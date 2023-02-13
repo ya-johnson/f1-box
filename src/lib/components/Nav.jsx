@@ -14,31 +14,10 @@ const Nav = () => {
   const setTheme = useThemeStore(state => state.setTheme)
   const [menu, setMenu] = useState(false)
   const [counter, setCounter] = useState()
+  const router = useRouter()
 
-  const styleLink = (path) => {
-    const router = useRouter()
-
-    if (router.pathname === path) {
-      return 'text-amber-400'
-    } else {
-      return 'hover:text-amber-400'
-    }
-  }
-
-  const countdwon = () => {
-    const remaining = new Date(`${nextRace.date} ${nextRace.time}`) - new Date()
-    const counter = {
-      days: Math.floor(remaining / (1000 * 60 * 60 * 24)),
-      hours: Math.floor(remaining / (1000 * 60 * 60)) % 24,
-      minutes: Math.floor(remaining / (1000 * 60)) % 60,
-      seconds: Math.floor(remaining / 1000) % 60
-    }
-    setCounter(counter)
-  }
-
-  const toggleMenu = () => {
-    !menu ? setMenu(true) : setMenu(false)
-  }
+  const toggleMenu = () => setMenu(!menu)
+  const styleLink = (path) => router.pathname === path ? 'text-amber-400' : 'hover:text-amber-400'
 
   const toggleTheme = () => {
     if (theme === 'dark') {
@@ -60,12 +39,24 @@ const Nav = () => {
     }
   }
 
+  const countdwon = () => {
+    setInterval(() => {
+      const remaining = new Date(`${nextRace.date} ${nextRace.time}`) - new Date()
+      const counter = {
+        days: Math.floor(remaining / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(remaining / (1000 * 60 * 60)) % 24,
+        minutes: Math.floor(remaining / (1000 * 60)) % 60,
+        seconds: Math.floor(remaining / 1000) % 60
+      }
+      setCounter(counter)
+    }, 1000)
+  }
 
-  setInterval(countdwon, 1000)
 
   useEffect(() => {
     initTheme()
     if (nextRace.date) countdwon()
+    return () => clearInterval(countdwon)
   }, [])
 
 
