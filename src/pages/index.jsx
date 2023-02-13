@@ -87,7 +87,7 @@ const Home = ({ season,
           </div>
           <div className="flex items-center justify-center space-x-20 mb-12 md:flex-col md:space-x-0 md:space-y-6">
             <div className="max-w-[340px]">
-              <div className="flex items-center space-x-4 pb-4 text-amber-400">
+              <div className="flex items-center space-x-4 pb-4">
                 <BsGraphUp className="h-6 w-6"/>
                 <Link href='/PostRace'><a className="text-xl font-medium">Post Race</a></Link>
               </div>
@@ -98,7 +98,7 @@ const Home = ({ season,
             </div>
 
             <div className="max-w-[340px]">
-              <div className="flex items-center space-x-4 pb-4 text-amber-400">
+              <div className="flex items-center space-x-4 pb-4">
                 <GiFullMotorcycleHelmet className="h-6 w-6"/>
                 <Link href='/Drivers'><a className="text-xl font-medium">Drivers</a></Link>
               </div>
@@ -108,7 +108,7 @@ const Home = ({ season,
               </p>
             </div>
             <div className="max-w-[340px]">
-              <div className="flex items-center space-x-4 pb-4 text-amber-400">
+              <div className="flex items-center space-x-4 pb-4">
                 <MdGroups className="h-6 w-6"/>
                 <Link href='/Constructors'><a className="text-xl font-medium">Constructors</a></Link>
               </div>
@@ -134,10 +134,10 @@ const Home = ({ season,
           {season.schedule.map(race => {
             return (
             <SwiperSlide>
-              <div className={`p-4 brd border bg-white dark:bg-neutral-900
+              <div className={`p-4 bg-white dark:bg-neutral-900
                               ${race.round === lastRace.round &&
                               'bg-amber-400 dark:bg-amber-400 text-neutral-900'}`}>
-                <p className="text-lg font-medium">{race.name}</p>
+                <p className="text-lg font-semibold">{race.name}</p>
                 <p>Round: {race.round}</p>
                 <p>Country: {race.country}</p>
                 <p>Circuit: {race.circuit}</p>
