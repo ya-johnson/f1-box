@@ -70,9 +70,8 @@ const Nav = () => {
           <Link href='/'>
             <a className="font-Russo-one text-3xl hover:text-amber-400">F1 box</a>
           </Link>
-          <div className={`space-x-8 lg:absolute lg:top-[65px] lg:left-full 
-                           lg:h-[calc(100vh-65px)] lg:w-screen
-                           lg:flex lg:flex-col p-4
+          <div className={`space-x-8 lg:absolute lg:top-[64px] lg:left-full 
+                           lg:h-[calc(100vh-64px)] lg:w-screen lg:flex lg:flex-col p-4
                            lg:bg-neutral-300 lg:dark:bg-neutral-900 
                            lg:space-y-6 lg:space-x-0 ${menu && 'lg:left-0'}`}>
             <Link href='/PostRace'><a className={styleLink('/PostRace')}>Post Race</a></Link>
@@ -85,15 +84,11 @@ const Nav = () => {
           <Link href="https://github.com/ya-johnson/f1-box">
             <a target="_blank"><BsGithub className="icon" /></a>
           </Link>
-          { theme === 'dark' ? 
-              <BsSun className="icon"
-                      onClick={toggleTheme} />
-              : 
-              <BsMoon className="icon"
-                     onClick={toggleTheme} />
-          }
-          <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`}
-                  onClick={toggleMenu}/>
+          { theme === 'dark' ? <BsSun className="icon" onClick={toggleTheme} />
+                             : <BsMoon className="icon" onClick={toggleTheme} />}
+                             
+          <FiMenu className={`icon hidden lg:block ${menu && 'lg:rotate-90'}`} onClick={toggleMenu}/>
+
           {nextRace.date && 
           <div className="flex items-center justify-between space-x-2 
                           py-1 pl-4 pr-2 lg:hidden">
