@@ -24,8 +24,11 @@ const PostRace = () => {
       <section className="container">
         { race && 
         <div className="mb-4">
-          <h1>{`Season: ${race.season} Round: ${race.round}`}</h1>
-          <div className="flex space-x-6">
+          <div className="flex space-x-8 mb-4 md:flex-col md:space-x-0 md:space-y-1">
+            <p className="font-Russo-one text-6xl md:text-4xl">{`Season: ${race.season}`}</p>
+            <p className="font-Russo-one text-6xl md:text-4xl">{`Round: ${race.round}`}</p>
+          </div>
+          <div className="flex flex-wrap gap-4">
             <p>Country: {race.info.country}</p>
             <p>City: {race.info.city}</p>
             <p>Circuit: {race.info.circuit}</p>
@@ -59,7 +62,7 @@ const PostRace = () => {
                   <Table cols={Object.keys(standings.drivers.standings[0])} 
                          rows={standings.drivers.standings} 
                          width='w-full' />
-                  <div className="flex justify-center w-1/2 xl:w-full">
+                  <div className="w-1/2 min-h-[805px] xl:w-full">
                     <ResponsiveContainer>
                       <BarChart data={standings.drivers.chart} barCategoryGap={'15%'}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -80,7 +83,7 @@ const PostRace = () => {
                   <Table cols={Object.keys(standings.constructors.standings[0])} 
                          rows={standings.constructors.standings} 
                          width={'min-w-[400px]'}/>
-                  <div className="w-full flex justify-center">
+                  <div className="w-full min-h-[400px] flex justify-center">
                     <div className="w-2/5 xl:w-full">
                       <ResponsiveContainer>
                         <BarChart data={standings.constructors.chart} barCategoryGap={'15%'}>

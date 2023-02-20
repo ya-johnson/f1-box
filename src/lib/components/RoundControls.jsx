@@ -25,7 +25,6 @@ const RoundControls = ({ setRace }) => {
       const rounds = schedule.map(race => `${race.round}-${race.name}`)
       setRound(rounds[0])
       setSeasonSchedule(rounds)
-
     }
   }
 
@@ -41,7 +40,7 @@ const RoundControls = ({ setRace }) => {
 
 
   return (
-    <div className="flex space-x-8">
+    <div className="flex space-x-8 md:flex-col md:space-x-0 md:space-y-4 mb-8">
 
       <Dropdown type='select'
                 title='Season:'
