@@ -17,7 +17,7 @@ const Drivers = () => {
         <p>Select Drivers to see stats and preform comparition.</p>
         {!all ? <Loader />  
               : <Dropdown type='multi'
-                          className='min-w-[200px] max-w-[800px] my-6'
+                          className='min-w-[200px] max-w-[800px] my-6 sm:w-full'
                           title='Drivers:'
                           list={all?.names}
                           setItem={setSelected} 
