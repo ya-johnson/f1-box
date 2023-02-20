@@ -30,8 +30,8 @@ const useStats = (type) => {
         championships: obj.championships.length 
       }
     })
+    
     const races = statsData.map(obj => {
-      console.log(obj.stats.podiums)
       return {
         name: obj.name || obj[single],
         races: obj.stats.races,
