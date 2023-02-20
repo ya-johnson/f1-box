@@ -48,7 +48,7 @@ const Home = ({ season,
   return (
     <main className="lg:mt-0 lg:mb-20">
       <section className="container flex items-center justify-between space-x-6 h-[90vh] pb-20 
-                          lg:flex-col-reverse lg:justify-end lg:space-x-0 lg:px-0">
+                          lg:flex-col-reverse lg:justify-end lg:space-x-0 lg:px-0 lg:pb-0">
         <div className="w-1/2 lg:w-full lg:flex lg:flex-col lg:items-center lg:justify-center lg:px-4 lg:text-center">
           <div className="flex items-center space-x-2">
             <p className="mute-text text-xl lg:text-base">
@@ -60,13 +60,9 @@ const Home = ({ season,
           <h1>{report.title}</h1>
           <Table cols={Object.keys(podium[0])} rows={podium} />
 
-          <div className="flex space-x-6 md:space-x-4">
-            <Link href={'/PostRace'}>
-              <a className="btn amber-btn sdw">Results and Analytics</a>
-            </Link>
-            <Link href={report.reportLink}>
-              <a className="btn neutral-btn sdw" target="_blank">Officel Formula 1 Race Report</a>
-            </Link>
+          <div className="flex space-x-6 sm:flex-col-reverse sm:space-x-0 sm:space-y-reverse sm:space-y-4">
+            <Link href={'/PostRace'}><a className="btn amber-btn sdw">Results and Analytics</a></Link>
+            <Link href={report.reportLink}><a className="btn neutral-btn sdw" target="_blank">Officel Formula 1 Race Report</a></Link>
           </div>
         </div>
 
@@ -127,14 +123,14 @@ const Home = ({ season,
                 modules={[Pagination]}
                 breakpoints={{
                   100: {slidesPerView: 1, slidesPerGroup: 1},
-                  400: {slidesPerView: 2, slidesPerGroup: 2},
+                  480: {slidesPerView: 2, slidesPerGroup: 2},
                   767: {slidesPerView: 3, slidesPerGroup: 3},
                   1023: {slidesPerView: 4, slidesPerGroup: 4},
                 }}>
           {season.schedule.map(race => {
             return (
             <SwiperSlide>
-              <div className={`p-4 bg-white dark:bg-neutral-900
+              <div className={`h-[200px] p-4 bg-white dark:bg-neutral-900
                               ${race.round === lastRace.round &&
                               'bg-amber-400 dark:bg-amber-400 text-neutral-900'}`}>
                 <p className="text-lg font-semibold">{race.name}</p>
