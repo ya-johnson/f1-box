@@ -16,7 +16,7 @@ const Constructors = () => {
         <h1>Constructors</h1>
         {!all ? <Loader />  
               : <Dropdown type='multi'
-                          className='min-w-[200px] max-w-[800px] mt-4'
+                          className='min-w-[200px] max-w-[800px] my-6'
                           title='Constructors:'
                           list={all?.names}
                           setItem={setSelected} 
