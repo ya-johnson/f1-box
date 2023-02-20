@@ -33,7 +33,7 @@ const Intro = () => {
     <div className="intro h-full w-full fixed top-0 left-0
                     flex flex-col items-center justify-center 
                     bg-stone-900 z-50">
-      <h1 className="text-9xl text-stone-300 animate-pulse">F1 box</h1>
+      <h1 className="text-9xl md:text-5xl text-stone-300 animate-pulse">F1 box</h1>
       <p className="text-2xl text-stone-400 animate-pulse">Loading ...</p>
     </div>
   )
