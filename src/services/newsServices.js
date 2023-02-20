@@ -99,10 +99,10 @@ const getMotorsportNews = async () => {
   const data = await response.data
 
   const page = cheerio.load(data)
-  const articlesData = page('.ms-item--art, .ms-grid-hor-items-1-2-3-4-5').map((i, article) => {
+  const articlesData = page('.ms-item, .ms-grid').map((i, article) => {
     return {
-      header: page(article).find('.ms-item_link--text').text(),
-      image: page(article).find('.ms-item_img--3_2').attr('src'),
+      header: page(article).find('a').attr('title'),
+      image: page(article).find('.ms-item__img').attr('src'),
       url: page(article).find('a').attr('href')
     }
   }).get()
