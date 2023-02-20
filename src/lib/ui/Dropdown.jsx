@@ -52,7 +52,7 @@ const Dropdown = ({ type,
 
   return (
     <div className="flex">
-      <div className={`dropdown relative cursor-pointer mb-8
+      <div className={`dropdown relative cursor-pointer
                        py-2 px-4 border brd rounded-lg
                        bg-white dark:bg-neutral-900 
                       ${className && className} ${drop}`}
@@ -63,9 +63,11 @@ const Dropdown = ({ type,
 
         <div className="flex justify-between items-center space-x-2 capitalize">
           <span>{title}</span>
-          {(type === 'multi' && selected.length > 0) && selected.map(item => {
+          {(type === 'multi' && selected.length > 0) && 
+          <div className="flex justify-between items-center space-x-2 capitalize sm:flex-col sm:space-x-0 sm:space-y-2">
+          {selected.map(item => {
             return (
-              <div className="flex items-center pl-2 rounded-md
+              <div className="sm:w-full flex items-center justify-between pl-2 rounded-md
                               bg-amber-400 text-neutral-800">
                 <p>{item}</p>
                 <div className="h-full ml-2 p-1 rounded-r-md 
@@ -75,6 +77,8 @@ const Dropdown = ({ type,
                 </div>     
               </div>)
           })}
+          </div>
+}
 
           {(type === 'select' && selected) &&
             <div className="flex items-center pl-2 rounded-md
