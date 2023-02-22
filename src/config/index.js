@@ -1,4 +1,4 @@
-const API_URL = 'http://ergast.com/api/f1'
+const API_URL = 'https://ergast.com/api/f1'
 const FORMULA1_URL = 'https://formula1.com'
 const SKY_F1_URL = 'https://skysports.com/f1'
 const MOTOR_SPORT_F1_URL = 'https://motorsport.com/f1'
