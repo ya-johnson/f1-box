@@ -16,20 +16,24 @@
 
   body {
     @apply overflow-x-hidden font-Kanit 
-         text-neutral-800 dark:text-neutral-300 
-         bg-neutral-200 dark:bg-neutral-800;
+           text-neutral-800 dark:text-neutral-300 
+           bg-neutral-100 dark:bg-neutral-800 lg:text-sm;
+  }
+
+  main {
+    @apply min-h-[80vh] my-20;
   }
 
   h1,h2,h3,h4,h5,h6 {
-    @apply font-Russo-one ;
+    @apply font-Russo-one;
   }
 
   h1 {
-    @apply text-6xl mb-6;
+    @apply text-6xl mb-2 lg:text-4xl;
   }
 
   h2 {
-    @apply text-4xl mb-4;
+    @apply text-4xl mb-2 lg:text-3xl;
   }
 
   h3 {
@@ -44,11 +48,11 @@
 
   .btn {
     @apply py-2 px-4 hover:-translate-y-1 rounded-lg
-           border border-solid border-neutral-500;
+           border border-solid border-neutral-500 md:py-1 md:px-2;
   }
 
   .neutral-btn {
-    @apply bg-neutral-300 dark:bg-neutral-700 ;
+    @apply bg-white dark:bg-neutral-900 ;
   }
 
   .amber-btn {
@@ -61,7 +65,7 @@
   }
 
   .sdw {
-    @apply hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)];
+    @apply hover:shadow-[0_25px_25px_-15px_rgba(0,0,0,0.4)];
   }
 
   /* swiper */
@@ -73,23 +77,4 @@
   .swiper .swiper-pagination {
     @apply relative py-8;
   }
-
-  /* toastify */
-
-  .toast-container {
-    @apply w-[540px];
-  }
-
-  .toast-body {
-    @apply text-neutral-800 dark:text-neutral-300 
-           bg-neutral-200 dark:bg-neutral-800
-             border border-solid
-           border-neutral-700 dark:border-neutral-500;
-  }
-
-  .toast-body > .Toastify__close-button--light,
-  .toast-body > .Toastify__close-button--dark {
-    @apply text-neutral-800 dark:text-neutral-300;
-  }
-  
 }
