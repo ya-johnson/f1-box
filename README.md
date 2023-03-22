@@ -12,6 +12,7 @@ As well as News and Press gathered from popular publishers.
 - [Zustand](https://github.com/pmndrs/zustand)
 - [Tailwind](https://tailwindcss.com/)
 - [Cheerio](https://cheerio.js.org/)
+- [Recharts](https://recharts.org/)
 - Powered by [Ergast F1 API.](https://ergast.com/mrd/)
 
 
@@ -48,4 +49,12 @@ NodeJs
 
 
 ## ToDo
-- [] Set Data limits -  Ergast F1 API data availability.
+- [ ] Set Data limits -  Ergast F1 API data availability.
+- [ ] Fix in between season:
+   - [ ] next race countdown
+   - [X] filter upcoming season schedule from RoundControls component 
+- [ ] UI
+   - [X] Add Download option for graphics
+      - [ ] Fix padding/spacing on images
+   - [ ] Recharts - styles (tooltip etc)
+   - [ ] Country flags
