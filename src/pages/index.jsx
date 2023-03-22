@@ -175,7 +175,7 @@ const Home = ({ season,
                               <img src={article.image} className="w-full h-60"/>
                             </div>
                             <div className="h-40 md:h-48 p-4 bg-white dark:bg-neutral-900">
-                              <span>{article.type}</span>
+                              {/* <span>{article.type}</span> */}
                               <p className="text-xl font-medium">{article.header}</p>
                             </div>
                           </div>
